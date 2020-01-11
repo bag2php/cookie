@@ -1,0 +1,24 @@
+{
+    "name": "bag2/cookie",
+    "description": "Cookie functions over PSR-7 and setcookie() function.",
+    "license": "MPL-2.0",
+    "require": {
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bag2\\Cookie\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bag2\\Cookie\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

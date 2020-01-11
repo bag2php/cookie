@@ -1,0 +1,45 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in([
+        __DIR__ . '/src/',
+        __DIR__ . '/tests/',
+    ])
+    ->append([__DIR__ . '/php-cs-fixer']);
+
+$config = PhpCsFixer\Config::create()
+    ->setRules([
+        '@PSR2' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'binary_operator_spaces' => true,
+        'function_typehint_space' => true,
+        'hash_to_slash_comment' => true,
+        'list_syntax' => ['syntax' => 'short'],
+        'lowercase_static_reference' => true,
+        'magic_constant_casing' => true,
+        'magic_method_casing' => true,
+        'no_empty_comment' => true,
+        'no_empty_phpdoc' => true,
+        'no_empty_statement' => true,
+        'no_extra_blank_lines' => true,
+        'no_extra_consecutive_blank_lines' => true,
+        'no_leading_import_slash' => true,
+        'no_leading_namespace_whitespace' => true,
+        'no_mixed_echo_print' => true,
+        'no_multiline_whitespace_around_double_arrow' => true,
+        'no_null_property_initialization' => true,
+        'normalize_index_brace' => true,
+        'ordered_imports' => true,
+        'phpdoc_no_access' => true,
+        'phpdoc_scalar' => true,
+        'phpdoc_to_comment' => false,
+        'short_scalar_cast' => true,
+        'single_quote' => true,
+        'standardize_increment' => true,
+        'standardize_not_equals' => true,
+        'ternary_operator_spaces' => true,
+        'whitespace_after_comma_in_array' => true,
+    ])
+    ->setFinder($finder);
+
+return $config;
