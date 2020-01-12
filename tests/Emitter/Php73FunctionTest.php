@@ -10,7 +10,7 @@ final class Php73FunctionTest extends TestCase
 {
     /** @var Php73Function */
     private $subject;
-    /** @var ?array */
+    /** @var ?array{name:string,value:string,option:array} */
     private $receive;
 
     public function setUp(): void
