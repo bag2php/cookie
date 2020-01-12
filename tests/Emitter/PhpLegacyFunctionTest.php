@@ -94,6 +94,18 @@ final class PhpLegacyFunctionTest extends TestCase
             [['domain' => 'cookie.example.com']],
             [['secure' => true]],
             [['httponly' => true]],
+            [
+                ['path' => '/', 'samesite' => 'Lax'],
+                [
+                    'name' => 'name',
+                    'value' => 'val',
+                    'expires' => 0,
+                    'path' => '/; SameSite=Lax',
+                    'domain' => '',
+                    'secure' => false,
+                    'httponly' => false,
+                ]
+            ],
         ];
     }
 

@@ -3,8 +3,8 @@
 namespace Bag2\Cookie\Emitter;
 
 use const PHP_VERSION_ID;
-use function setcookie;
 use Bag2\Cookie\Emitter;
+
 
 final class PhpLegacyFunction implements Emitter
 {
@@ -15,11 +15,21 @@ final class PhpLegacyFunction implements Emitter
     {
         assert(PHP_VERSION_ID < 70300);
 
-        return setcookie(
+        $path = $options['path'] ?? '';
+
+        if (isset($options['samesite'])) {
+            if ($path === '') {
+                $path = '/; SameSite=' . \urlencode($options['samesite']);
+            } else {
+                $path .= '; SameSite=' . \urlencode($options['samesite']);
+            }
+        }
+
+        return \setcookie(
             $name,
             $value,
             $options['expires'] ?? 0,
-            $options['path'] ?? '',
+            $path,
             $options['domain'] ?? '',
             $options['secure'] ?? false,
             $options['httponly'] ?? false,
