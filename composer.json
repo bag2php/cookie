@@ -3,6 +3,7 @@
     "description": "Cookie functions over PSR-7 and setcookie() function.",
     "license": "MPL-2.0",
     "require": {
+        "php": "^7.1",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
