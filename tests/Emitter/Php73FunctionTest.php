@@ -10,7 +10,7 @@ final class Php73FunctionTest extends TestCase
 {
     /** @var Php73Function */
     private $subject;
-    /** @var ?array{name:string,value:string,option:array} */
+    /** @var ?array{name:string,value:string,options:array} */
     private $receive;
 
     public function setUp(): void
@@ -20,6 +20,11 @@ final class Php73FunctionTest extends TestCase
         SoftMocks::redefineConstant('PHP_VERSION_ID', 70300);
 
         $receive = &$this->receive;
+        /**
+         * @param string $name
+         * @param string $value
+         * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options $options
+         */
         SoftMocks::redefineFunction('setcookie', '', static function ($name, $value, $options) use (&$receive) {
             $receive = [
                 'name' => $name,
