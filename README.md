@@ -20,11 +20,9 @@ This package provides common features whether your project is **PSR-7 based** or
 ```php
 <?php
 
-use Bag2\Cookie\Bag as CookieBag;
-
 $now = \time();
 
-$cookie = new CookieBag(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
+$cookie = Bag2\Cookie\bag(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
 $cookie->add('NameA', 'value 1', ['expires' => $now + 1200]);
 $cookie->add('NameB', 'value 2', ['expires' => $now + 3600]);
 ```
