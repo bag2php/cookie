@@ -12,8 +12,17 @@ use OutOfRangeException;
  * @property-read string $value
  * @property-read array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
  */
-final class Cookie
+final class SetCookie
 {
+    private const KNOWN_OPTIONS = [
+        'expires' => 'int',
+        'path' => 'string',
+        'domain' => 'string',
+        'secure' => 'bool',
+        'httponly' => 'bool',
+        'samesite' => 'bool',
+    ];
+
     private const RE_MALFORMED_PATH = "/[,; \t\r\n\013\014]/";
 
     /** @var string */
@@ -30,6 +39,8 @@ final class Cookie
      */
     public function __construct(string $name, $value, array $options = [])
     {
+        self::assertOptions($options);
+
         $this->name = $name;
         $this->value = (string)$value;
         $this->options = $options;
@@ -68,6 +79,18 @@ final class Cookie
     public function __unset($name)
     {
         throw new OutOfRangeException();
+    }
+
+    /**
+     * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+     */
+    public static function assertOptions(array $options): void
+    {
+        foreach ($options as $name => $_) {
+            if (!isset(self::KNOWN_OPTIONS[$name])) {
+                throw new DomainException("{$name} in unexpected cookie option.");
+            }
+        }
     }
 
     public function compileHeaderLine(int $now): string
@@ -122,9 +145,9 @@ final class Cookie
     /**
      * @param array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}} $data
      */
-    public function fromArray(array $data): Cookie
+    public function fromArray(array $data): SetCookie
     {
-        return new Cookie($data['name'], $data['value'], $data['options']);
+        return new SetCookie($data['name'], $data['value'], $data['options']);
     }
 
     /**

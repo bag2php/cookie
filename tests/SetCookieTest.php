@@ -2,7 +2,7 @@
 
 namespace Bag2\Cookie;
 
-final class CookieTest extends TestCase
+final class SetCookieTest extends TestCase
 {
     private const NOW = 1578813956;
 
@@ -16,7 +16,7 @@ final class CookieTest extends TestCase
      */
     public function test($name, $value, $options, $expected_array, $expected_line): void
     {
-        $subject = new Cookie($name, $value, $options);
+        $subject = new SetCookie($name, $value, $options);
 
         $this->assertSame($expected_array, $subject->toArray());
         $this->assertSame($expected_line, $subject->compileHeaderLine(self::NOW));

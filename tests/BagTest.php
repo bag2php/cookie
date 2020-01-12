@@ -10,7 +10,7 @@ final class BagTest extends TestCase
      * @dataProvider bagProvider
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
      * @param array<array{0:string,1:string,2:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}}> $cookies
-     * @param Cookie[] $expected_cookies
+     * @param SetCookie[] $expected_cookies
      */
     public function test($default_options, $cookies, $expected_cookies): void
     {
@@ -21,7 +21,7 @@ final class BagTest extends TestCase
         }
 
         foreach ($subject as $cookie) {
-            $this->assertInstanceOf(Cookie::class, $cookie);
+            $this->assertInstanceOf(SetCookie::class, $cookie);
             $this->assertTrue($subject->has($cookie->name));
             $this->assertSame($cookie, $subject->get($cookie->name));
         }
@@ -57,7 +57,7 @@ final class BagTest extends TestCase
                     ['Name', 'Value', ['expires' => $now + 120]],
                 ],
                 'expected_cookies' => [
-                    new Cookie('Name', 'Value', ['expires' => $now + 120]),
+                    new SetCookie('Name', 'Value', ['expires' => $now + 120]),
                 ],
             ],
             [
@@ -66,7 +66,7 @@ final class BagTest extends TestCase
                     ['Name', 'Value', ['expires' => $now + 120]],
                 ],
                 'expected_cookies' => [
-                    new Cookie('Name', 'Value', [
+                    new SetCookie('Name', 'Value', [
                         'expires' => $now + 120,
                         'httponly' => true,
                         'samesite' => 'Strict',

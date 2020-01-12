@@ -10,11 +10,11 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Cookie Bag
  *
- * @implements IteratorAggregate<string,Cookie>
+ * @implements IteratorAggregate<string,SetCookie>
  */
 class Bag implements IteratorAggregate, Countable
 {
-    /** @var array<string,Cookie> */
+    /** @var array<string,SetCookie> */
     private $bag = [];
     /** @var array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} */
     private $default_options;
@@ -24,6 +24,8 @@ class Bag implements IteratorAggregate, Countable
      */
     public function __construct(array $default_options = [])
     {
+        SetCookie::assertOptions($default_options);
+
         $this->default_options = $default_options;
     }
 
@@ -34,7 +36,7 @@ class Bag implements IteratorAggregate, Countable
      */
     public function add(string $name, $value, array $options = []): self
     {
-        $this->bag[$name] = new Cookie($name, $value, $options + $this->default_options);
+        $this->bag[$name] = new SetCookie($name, $value, $options + $this->default_options);
 
         return $this;
     }
@@ -80,13 +82,13 @@ class Bag implements IteratorAggregate, Countable
         return isset($this->bag[$name]);
     }
 
-    public function get(string $name): Cookie
+    public function get(string $name): SetCookie
     {
         return $this->bag[$name];
     }
 
     /**
-     * @return ArrayIterator<string,Cookie>
+     * @return ArrayIterator<string,SetCookie>
      */
     public function getIterator()
     {
