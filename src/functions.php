@@ -26,12 +26,17 @@ namespace Bag2\Cookie
         return new Php73Function();
     }
 
-    function emit(Bag $cookie_bag): void
+    function emit(Bag $cookie_bag): bool
     {
         $emitter = create_emitter();
 
+        $success = true;
+
         foreach ($cookie_bag as $cookie) {
-            $emitter($cookie->name, $cookie->value, $cookie->options);
+            [$name, $value, $options] = [$cookie->name, $cookie->value, $cookie->options];
+            $success = $success && $emitter($name, $value, $options);
         }
+
+        return $success;
     }
 }
