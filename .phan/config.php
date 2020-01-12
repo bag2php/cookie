@@ -354,8 +354,12 @@ return [
     // Thus, both first-party and third-party code being used by
     // your application should be included in this list.
     'directory_list' => [
-        'src',
-        'vendor/phpunit/phpunit/src',
+        'src/',
+        'tests/',
+        'vendor/nyholm/psr7/src/',
+        'vendor/phpunit/phpunit/src/',
+        'vendor/psr/http-factory/src/',
+        'vendor/psr/http-message/src/',
     ],
 
     // A list of individual files to include in analysis
@@ -363,5 +367,6 @@ return [
     // project.
     'file_list' => [
         'src/functions.php',
+        'vendor/badoo/soft-mocks/src/Badoo/SoftMocks.php',
     ],
 ];
