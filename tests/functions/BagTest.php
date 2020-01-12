@@ -6,7 +6,7 @@ use Bag2\Cookie\Bag;
 
 final class BagTest extends \Bag2\Cookie\TestCase
 {
-    public function test()
+    public function test(): void
     {
         $this->assertInstanceOf(Bag::class, \Bag2\Cookie\bag());
     }

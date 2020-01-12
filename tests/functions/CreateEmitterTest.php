@@ -12,13 +12,16 @@ final class CreateEmitterTest extends \Bag2\Cookie\TestCase
      * @dataProvider versionsProvider
      * @param class-string $expected
      */
-    public function test(int $php_version_id, string $expected)
+    public function test(int $php_version_id, string $expected): void
     {
         SoftMocks::redefineConstant('PHP_VERSION_ID', $php_version_id);
 
         $this->assertInstanceOf($expected, \Bag2\Cookie\create_emitter());
     }
 
+    /**
+     * @return array<string,array{0:int,1:class-string}>
+     */
     public function versionsProvider()
     {
         return [
