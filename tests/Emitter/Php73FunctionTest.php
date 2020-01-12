@@ -58,7 +58,6 @@ final class Php73FunctionTest extends TestCase
         $this->assertSame($expected, $this->receive);
     }
 
-
     public function test_raise_AssertionError(): void
     {
         $this->expectException(AssertionError::class);

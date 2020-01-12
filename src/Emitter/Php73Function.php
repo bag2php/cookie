@@ -2,9 +2,9 @@
 
 namespace Bag2\Cookie\Emitter;
 
+use Bag2\Cookie\Emitter;
 use const PHP_VERSION_ID;
 use function setcookie;
-use Bag2\Cookie\Emitter;
 
 final class Php73Function implements Emitter
 {

@@ -2,9 +2,8 @@
 
 namespace Bag2\Cookie\Emitter;
 
-use const PHP_VERSION_ID;
 use Bag2\Cookie\Emitter;
-
+use const PHP_VERSION_ID;
 
 final class PhpLegacyFunction implements Emitter
 {

@@ -5,9 +5,9 @@
  */
 namespace Bag2\Cookie
 {
-    use const PHP_VERSION_ID;
     use Bag2\Cookie\Emitter\Php73Function;
     use Bag2\Cookie\Emitter\PhpLegacyFunction;
+    use const PHP_VERSION_ID;
 
     /**
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
