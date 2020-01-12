@@ -38,13 +38,6 @@ final class Php73FunctionTest extends TestCase
         $this->subject = new Php73Function();
     }
 
-    public function tearDown(): void
-    {
-        SoftMocks::restoreAll();
-
-        parent::tearDown();
-    }
-
     public function test(): void
     {
         $expected = [

@@ -47,13 +47,6 @@ final class PhpLegacyFunctionTest extends TestCase
         $this->subject = new PhpLegacyFunction();
     }
 
-    public function tearDown(): void
-    {
-        SoftMocks::restoreAll();
-
-        parent::tearDown();
-    }
-
     /**
      * @dataProvider cookieInputProvider
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $input
