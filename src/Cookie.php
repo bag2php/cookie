@@ -2,7 +2,10 @@
 
 namespace Bag2\Cookie;
 
+use DomainException;
 use OutOfRangeException;
+use function preg_match;
+use function urlencode;
 
 /**
  * Cookie class for HTTP Set-Cookie header
@@ -13,6 +16,8 @@ use OutOfRangeException;
  */
 final class Cookie
 {
+    private const RE_MALFORMED_PATH = "/[,; \t\r\n\013\014]/";
+
     /** @var string */
     private $name;
     /** @var string */
@@ -23,6 +28,7 @@ final class Cookie
     /**
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+     * @param ?int $now
      * @phan-suppress PhanAccessReadOnlyMagicProperty
      */
     public function __construct(string $name, $value, array $options = [])
@@ -65,6 +71,55 @@ final class Cookie
     public function __unset($name)
     {
         throw new OutOfRangeException();
+    }
+
+    public function compileHeaderLine(int $now): string
+    {
+        $line = urlencode($this->name) . '=' . urlencode($this->value);
+
+        $expires = $this->options['expires'] ?? 0;
+        if ($expires > 0) {
+            assert(is_int($expires));
+
+            $expires_str = date(DATE_COOKIE, $this->options['expires']);
+            $max_age = max(0, $this->options['expires'] - $now);
+            $line .= '; expires=' . $expires_str . '; Max-Age=' . $max_age;
+        }
+
+        $path = $this->options['path'] ?? '';
+        if ($path !== '') {
+            assert(is_string($path));
+
+            if (preg_match(self::RE_MALFORMED_PATH, $path)) {
+                throw new DomainException('Cookie paths cannot contain any of the following \',; \\t\\r\\n\\013\\014\'');
+            }
+
+            $line .= '; path=' . $path;
+        }
+
+        $domain = $this->options['domain'] ?? '';
+        if ($domain !== '') {
+            assert(is_string($domain));
+
+            $line .= '; domain=' . urlencode($domain);
+        }
+
+        $secure = $this->options['secure'] ?? false;
+        if ($secure) {
+            $line .= '; secure';
+        }
+
+        $httponly = $this->options['httponly'] ?? false;
+        if ($httponly) {
+            $line .= '; HttpOnly';
+        }
+
+        $samesite = $this->options['samesite'] ?? false;
+        if ($samesite) {
+            $line .= '; SameSite=' . urlencode($samesite);
+        }
+
+        return $line;
     }
 
     /**

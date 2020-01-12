@@ -2,8 +2,12 @@
 
 namespace Bag2\Cookie;
 
+use function time;
+
 final class CookieTest extends TestCase
 {
+    private const NOW = 1578813956;
+
     /**
      * @dataProvider cookieProvider
      * @param string $name
@@ -11,11 +15,12 @@ final class CookieTest extends TestCase
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
      * @param array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}} $expected_array
      */
-    public function test($name, $value, array $options, array $expected_array): void
+    public function test($name, $value, $options, $expected_array, $expected_line): void
     {
         $subject = new Cookie($name, $value, $options);
 
         $this->assertSame($expected_array, $subject->toArray());
+        $this->assertSame($expected_line, $subject->compileHeaderLine(self::NOW));
     }
 
     /**
@@ -33,6 +38,7 @@ final class CookieTest extends TestCase
                     'value' => 'Value',
                     'options' => [],
                 ],
+                'expected_line' => 'Name=Value',
             ],
             [
                 'name' => 'Number',
@@ -43,6 +49,77 @@ final class CookieTest extends TestCase
                     'value' => '12345',
                     'options' => [],
                 ],
+                'expected_line' => 'Number=12345',
+            ],
+            [
+                'name' => 'Full',
+                'value' => 'Option',
+                'options' => [
+                    'expires' => self::NOW + 3600,
+                    'path' => '/dir/',
+                    'domain' => 'cookie.example.net',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Strict',
+                ],
+                'expected_array' => [
+                    'name' => 'Full',
+                    'value' => 'Option',
+                    'options' => [
+                        'expires' => self::NOW + 3600,
+                        'path' => '/dir/',
+                        'domain' => 'cookie.example.net',
+                        'secure' => true,
+                        'httponly' => true,
+                        'samesite' => 'Strict',
+                    ],
+                ],
+                'expected_line' => 'Full=Option; expires=Sunday, 12-Jan-2020 08:25:56 UTC; Max-Age=3600; path=/dir/; domain=cookie.example.net; secure; HttpOnly; SameSite=Strict',
+            ],
+            [
+                'name' => 'Expires',
+                'value' => 'is zero.',
+                'options' => [
+                    'expires' => 0,
+                ],
+                'expected_array' => [
+                    'name' => 'Expires',
+                    'value' => 'is zero.',
+                    'options' => [
+                        'expires' => 0,
+                    ],
+                ],
+                'expected_line' => 'Expires=is+zero.',
+            ],
+            [
+                'name' => 'Expires',
+                'value' => 'is one.',
+                'options' => [
+                    'expires' => 1,
+                ],
+                'expected_array' => [
+                    'name' => 'Expires',
+                    'value' => 'is one.',
+                    'options' => [
+                        'expires' => 1,
+                    ],
+                ],
+                'expected_line' => 'Expires=is+one.; expires=Thursday, 01-Jan-1970 00:00:01 UTC; Max-Age=0',
+            ],
+            [
+                'name' => 'Expires',
+                'value' => 'is now.',
+                'options' => [
+                    'expires' => self::NOW,
+                ],
+                'expected_array' => [
+                    'name' => 'Expires',
+                    'value' => 'is now.',
+                    'options' => [
+                        'expires' => self::NOW,
+                    ],
+                ],
+                'expected_line' => 'Expires=is+now.; expires=Sunday, 12-Jan-2020 07:25:56 UTC; Max-Age=0',
             ],
         ];
     }
