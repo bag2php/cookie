@@ -6,8 +6,11 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
+        "badoo/soft-mocks": "^3.0",
         "nyholm/psr7": "^1.2",
-        "phpunit/phpunit": "^7"
+        "php-http/psr7-integration-tests": "^1.0",
+        "phpunit/phpunit": "^7",
+        "vaimo/composer-patches": "^4.20"
     },
     "autoload": {
         "psr-4": {
