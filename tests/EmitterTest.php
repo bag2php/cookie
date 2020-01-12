@@ -6,19 +6,26 @@ final class EmitterTest extends TestCase
 {
     /** @var Emitter */
     protected $subject;
+    /** @var ?array{name:string,value:string,options:array} */
+    public $receive;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->subject = new class implements Emitter {
-            /** @var array{name:string,value:string,options:array} */
-            private $receive;
+        $this->subject = new class ($this) implements Emitter {
+            /** @var EmitterTest */
+            private $case;
+
+            public function __construct(EmitterTest $case)
+            {
+                $this->case = $case;
+            }
 
             public function __invoke(
                 string $name,
                 string $value,
                 array $options
             ): bool {
-                $this->receive = [
+                $this->case->receive = [
                     'name' => $name,
                     'value' => $value,
                     'options' => $options,
@@ -26,16 +33,10 @@ final class EmitterTest extends TestCase
 
                 return true;
             }
-
-
-            public function getReceive(): ?array
-            {
-                return $this->receive;
-            }
         };
     }
 
-    public function test()
+    public function test(): void
     {
         $expected = [
             'name' => 'name',
@@ -45,6 +46,6 @@ final class EmitterTest extends TestCase
         $subject = $this->subject;
 
         $this->assertTrue($subject('name', 'val', ['expires' => 0]));
-        $this->assertSame($expected, $subject->getReceive());
+        $this->assertSame($expected, $this->receive);
     }
 }
