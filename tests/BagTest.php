@@ -26,6 +26,8 @@ final class BagTest extends TestCase
             $this->assertSame($cookie, $subject->get($cookie->name));
         }
 
+        $this->assertFalse($subject->has(''));
+
         foreach ($expected_cookies as $expected) {
             $actual = $subject->get($expected->name);
             $this->assertSame($expected->name, $actual->name);
@@ -33,7 +35,7 @@ final class BagTest extends TestCase
             $this->assertSame($expected->options, $actual->options);
         }
 
-        $this->assertCount(\count($expected_cookies), $subject);
+        $this->assertSame(\count($expected_cookies), \count($subject));
     }
 
     /**
