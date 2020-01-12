@@ -74,7 +74,7 @@ final class BagTest extends TestCase
         ];
     }
 
-    public function test_setTo()
+    public function test_setTo(): void
     {
         $response = $this->createResponseFactory()->createResponse();
 

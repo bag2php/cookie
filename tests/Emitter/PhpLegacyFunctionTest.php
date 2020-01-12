@@ -8,12 +8,12 @@ use Bag2\Cookie\TestCase;
 
 final class PhpLegacyFunctionTest extends TestCase
 {
-    /** @var Emitter */
+    /** @var PhpLegacyFunction */
     private $subject;
     /** @var ?array */
     private $receive;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -37,7 +37,7 @@ final class PhpLegacyFunctionTest extends TestCase
         $this->subject = new PhpLegacyFunction();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         SoftMocks::restoreAll();
 
@@ -47,7 +47,7 @@ final class PhpLegacyFunctionTest extends TestCase
     /**
      * @dataProvider cookieInputProvider
      */
-    public function test(array $input)
+    public function test(array $input): void
     {
         SoftMocks::redefineConstant('PHP_VERSION_ID', 70100);
 
@@ -69,14 +69,17 @@ final class PhpLegacyFunctionTest extends TestCase
         $this->assertSame($expected, $this->receive);
     }
 
+    /**
+     * @return \Generator<array<array<string,mixed>>>
+     */
     public function cookieInputProvider()
     {
         $options = [
-            'expires' => 0,
-            'path' => '',
-            'domain' => '',
-            'secure' => false,
-            'httponly' => false,
+            'expires' => 3600,
+            'path' => '/',
+            'domain' => 'cookie.example.com',
+            'secure' => true,
+            'httponly' => true,
         ];
 
         foreach ($options as $name => $value) {
@@ -84,7 +87,7 @@ final class PhpLegacyFunctionTest extends TestCase
         }
     }
 
-    public function test_raise_AssertException()
+    public function test_raise_AssertException(): void
     {
         $this->expectException(AssertionError::class);
 

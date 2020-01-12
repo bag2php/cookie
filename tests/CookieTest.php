@@ -2,8 +2,6 @@
 
 namespace Bag2\Cookie;
 
-use function time;
-
 final class CookieTest extends TestCase
 {
     private const NOW = 1578813956;
@@ -14,6 +12,7 @@ final class CookieTest extends TestCase
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
      * @param array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}} $expected_array
+     * @param string $expected_line
      */
     public function test($name, $value, $options, $expected_array, $expected_line): void
     {

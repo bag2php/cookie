@@ -4,8 +4,6 @@ namespace Bag2\Cookie;
 
 use DomainException;
 use OutOfRangeException;
-use function preg_match;
-use function urlencode;
 
 /**
  * Cookie class for HTTP Set-Cookie header
@@ -28,7 +26,6 @@ final class Cookie
     /**
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
-     * @param ?int $now
      * @phan-suppress PhanAccessReadOnlyMagicProperty
      */
     public function __construct(string $name, $value, array $options = [])

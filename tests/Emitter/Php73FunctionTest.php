@@ -8,12 +8,12 @@ use Bag2\Cookie\TestCase;
 
 final class Php73FunctionTest extends TestCase
 {
-    /** @var Emitter */
+    /** @var Php73Function */
     private $subject;
     /** @var ?array */
     private $receive;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -33,14 +33,14 @@ final class Php73FunctionTest extends TestCase
         $this->subject = new Php73Function();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         SoftMocks::restoreAll();
 
         parent::tearDown();
     }
 
-    public function test()
+    public function test(): void
     {
         $expected = [
             'name' => 'name',
@@ -54,7 +54,7 @@ final class Php73FunctionTest extends TestCase
     }
 
 
-    public function test_raise_AssertionError()
+    public function test_raise_AssertionError(): void
     {
         $this->expectException(AssertionError::class);
 
