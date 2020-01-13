@@ -134,8 +134,8 @@ final class SetCookie
             $line .= '; HttpOnly';
         }
 
-        $samesite = $this->options['samesite'] ?? false;
-        if ($samesite) {
+        $samesite = $this->options['samesite'] ?? '';
+        if ($samesite !== '') {
             $line .= '; SameSite=' . \urlencode($samesite);
         }
 
