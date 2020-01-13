@@ -1,5 +1,15 @@
 # Bag2\Cookie
 
+![Packagist Version](https://img.shields.io/packagist/v/bag2/cookie?style=flat-square)
+![PHP from Packagist](https://img.shields.io/packagist/php-v/bag2/cookie?style=flat-square)
+![Packagist](https://img.shields.io/packagist/l/bag2/cookie?style=flat-square)
+
+## Installation
+
+```
+composer require bag2/cookie
+```
+
 ## Motivation
 
 We have some problems with HTTP `Set-Cookie` response header in PHP.
