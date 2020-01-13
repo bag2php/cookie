@@ -4,6 +4,7 @@
     "license": "Apache-2.0",
     "require": {
         "php": "^7.1",
+        "ext-pcre": "*",
         "psr/http-message": "^1.0"
     },
     "require-dev": {
@@ -12,6 +13,7 @@
         "nyholm/psr7": "^1.2",
         "php-http/psr7-integration-tests": "^1.0",
         "phpunit/phpunit": "^7",
+        "psr/http-factory": "^1.0",
         "vaimo/composer-patches": "^4.20"
     },
     "autoload": {
