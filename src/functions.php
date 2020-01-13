@@ -39,4 +39,27 @@ namespace Bag2\Cookie
 
         return $success;
     }
+
+    /**
+     * Send a cookie by legacy style \setcookie() like function
+     */
+    function setcookie(
+        string $name,
+        string $value = '',
+        int $expires = 0,
+        string $path = '',
+        string $domain = '',
+        bool $secure = false,
+        bool $httponly = false,
+        string $samesite = ''
+    ): bool {
+        return emit(oven()->add($name, $value, [
+            'expires' => $expires,
+            'path' => $path,
+            'domain' => $domain,
+            'secure' => $secure,
+            'httponly' => $httponly,
+            'samesite' => $samesite
+        ]));
+    }
 }

@@ -62,6 +62,15 @@ Bag2\Cookie\emit($cookie);
 
 Inside this function, the Emitter for the PHP version is selected, and the `setcookie()` function that matches the version specification is called.
 
+
+### Legacy style `setcookie()`
+
+If you don't like the new style of `setcookie()` with associative arrays, use `Bag2\Cookie\setcookie()`.
+
+```
+Bag2\Cookie\setcookie('Cookie', 'value', \time() + 256, '/', '', true, true, 'Lax');
+```
+
 ## Copyright
 
 This package is licenced under [Apache License 2.0][Apache-2.0].
