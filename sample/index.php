@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Bag2\Cookie\Bag;
+use Bag2\Cookie\Oven;
 use Nyholm\Psr7\Factory\Psr17Factory;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -25,7 +25,7 @@ $response = $factory->createResponse()
 <?php return ob_get_clean(); })()));
 
 $now = new DateTimeImmutable();
-$cookie = new Bag(['path' => '/', 'httponly' => true, 'samesite' => 'Strict']);
+$cookie = new Oven(['path' => '/', 'httponly' => true, 'samesite' => 'Strict']);
 $cookie->add('Name', 'John', ['expires' => $now->getTimestamp() + 120]);
 
 //Bag2\Cookie\emit($cookie);

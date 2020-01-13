@@ -8,11 +8,11 @@ use IteratorAggregate;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Cookie Bag
+ * Cookie Oven
  *
  * @implements IteratorAggregate<string,SetCookie>
  */
-class Bag implements IteratorAggregate, Countable
+class Oven implements IteratorAggregate, Countable
 {
     /** @var array<string,SetCookie> */
     private $bag = [];

@@ -12,9 +12,9 @@ namespace Bag2\Cookie
     /**
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
      */
-    function bag(array $default_options = []): Bag
+    function oven(array $default_options = []): Oven
     {
-        return new Bag($default_options);
+        return new Oven($default_options);
     }
 
     function create_emitter(): Emitter
@@ -26,13 +26,13 @@ namespace Bag2\Cookie
         return new Php73Function();
     }
 
-    function emit(Bag $cookie_bag): bool
+    function emit(Oven $cookie_oven): bool
     {
         $emitter = create_emitter();
 
         $success = true;
 
-        foreach ($cookie_bag as $cookie) {
+        foreach ($cookie_oven as $cookie) {
             [$name, $value, $options] = [$cookie->name, $cookie->value, $cookie->options];
             $success = $success && $emitter($name, $value, $options);
         }

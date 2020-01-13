@@ -3,7 +3,7 @@
 namespace Bag2\Cookie\functions;
 
 use Badoo\SoftMocks;
-use Bag2\Cookie\Bag;
+use Bag2\Cookie\Oven;
 use Bag2\Cookie\Emitter;
 
 final class EmitTest extends \Bag2\Cookie\TestCase
@@ -54,29 +54,29 @@ final class EmitTest extends \Bag2\Cookie\TestCase
      * @dataProvider cookieProvider
      * @param array{result:bool,received:array<array>} $expected
      */
-    public function test(Bag $bag, array $expected): void
+    public function test(Oven $oven, array $expected): void
     {
-        $actual = \Bag2\Cookie\emit($bag);
+        $actual = \Bag2\Cookie\emit($oven);
 
         $this->assertSame($expected['result'], $actual);
         $this->assertSame($expected['received'], $this->received);
     }
 
     /**
-     * @return array<string,array{0:Bag,1:array{result:bool,received:array<array>}}>
+     * @return array<string,array{0:Oven,1:array{result:bool,received:array<array>}}>
      */
     public function cookieProvider()
     {
         return [
             [
-                new Bag(),
+                new Oven(),
                 [
                     'result' => true,
                     'received' => [],
                 ]
             ],
             [
-                (new Bag())->add('A', 'v'),
+                (new Oven())->add('A', 'v'),
                 [
                     'result' => true,
                     'received' => [

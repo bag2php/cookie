@@ -2,7 +2,7 @@
 
 namespace Bag2\Cookie;
 
-final class BagTest extends TestCase
+final class OvenTest extends TestCase
 {
     private const NOW = 1578813956;
 
@@ -14,7 +14,7 @@ final class BagTest extends TestCase
      */
     public function test($default_options, $cookies, $expected_cookies): void
     {
-        $subject = new Bag($default_options);
+        $subject = new Oven($default_options);
 
         foreach ($cookies as [$name, $value, $options]) {
             $subject->add($name, $value, $options);
@@ -80,7 +80,7 @@ final class BagTest extends TestCase
     {
         $response = $this->createResponseFactory()->createResponse();
 
-        $subject = (new Bag())
+        $subject = (new Oven())
             ->add('Name1', 'value', ['expires' => self::NOW + 3600])
             ->add('Name2', 'value', ['expires' => self::NOW + 3600]);
 

@@ -13,23 +13,23 @@ This package provides common features whether your project is **PSR-7 based** or
 
 ## Examples
 
-### Create Cookie Bag
+### Create Cookie Oven
 
-**CookieBag** is an object that can hold multiple cookies.
+**CookieOven** is an object that can hold multiple cookies.
 
 ```php
 <?php
 
 $now = \time();
 
-$cookie = Bag2\Cookie\bag(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
+$cookie = Bag2\Cookie\oven(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
 $cookie->add('NameA', 'value 1', ['expires' => $now + 1200]);
 $cookie->add('NameB', 'value 2', ['expires' => $now + 3600]);
 ```
 
-CookieBag manages cookies by key-value. Please note that CookieBag can only have one cookie with the same name.
+CookieOven manages cookies by key-value. Please note that CookieOven can only have one cookie with the same name.
 
-`$default_options` passed to the CookieBag constructor is combined with `$option` passed to the `CookieBag::add()` method.
+`$default_options` passed to the CookieOven constructor is combined with `$option` passed to the `CookieOven::add()` method.
 
 The `$options` received in the 3rd argument is compatible with `setcookie()` function added in PHP 7.3.  Pleese see [PHP: setcookie - Manual](https://www.php.net/setcookie).  All option names are lowercase.
 
@@ -50,7 +50,7 @@ $response = $cookie->appendTo($response, $now);
 
 PSR-7 HTTP message objects are immutable.  If you are writing code on a PSR-7 compatible framework, you will probably just `return` this value.
 
-**Tips for unit testing**: `CookieBag::appendTo()` and `CookieBag::setTo()` receive unixtime of the current time for `SetCookie::compileHeaderLine()`.  The reason is that the current time affects the cookie output.  The argument is optional, but if you want strict output value validation, inject the time externally.
+**Tips for unit testing**: `Oven::appendTo()` and `Oven::setTo()` receive unixtime of the current time for `SetCookie::compileHeaderLine()`.  The reason is that the current time affects the cookie output.  The argument is optional, but if you want strict output value validation, inject the time externally.
 
 ### PHP `setcookie()` wrapper
 
