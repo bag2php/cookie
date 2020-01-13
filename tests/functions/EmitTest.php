@@ -13,7 +13,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
     /** @var Emitter */
     protected $subject;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->received = [];
 
@@ -52,7 +52,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
 
     /**
      * @dataProvider cookieProvider
-     * @param class-string $expected
+     * @param array{result:bool,received:array<array>} $expected
      */
     public function test(Bag $bag, array $expected): void
     {
@@ -63,7 +63,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
     }
 
     /**
-     * @return array<string,array{0:int,1:class-string}>
+     * @return array<string,array{0:Bag,1:array{result:bool,received:array<array>}}>
      */
     public function cookieProvider()
     {
