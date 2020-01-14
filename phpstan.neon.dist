@@ -5,3 +5,4 @@ parameters:
     - tests/
   autoload_files:
     - vendor/autoload.php
+    - vendor/badoo/soft-mocks/src/Badoo/SoftMocks.php
