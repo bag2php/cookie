@@ -31,7 +31,7 @@ final class PhpLegacyFunction implements Emitter
             $path,
             $options['domain'] ?? '',
             $options['secure'] ?? false,
-            $options['httponly'] ?? false,
+            $options['httponly'] ?? false
         );
     }
 }
