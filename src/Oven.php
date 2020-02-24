@@ -103,7 +103,7 @@ class Oven implements IteratorAggregate, Countable
     {
         $parsed = [];
         foreach ($cookie_lines as $i => $line) {
-            $name = \explode('=', $line, 2)[0] ?? $i;
+            $name = \explode('=', $line, 2)[0] ?? (string)$i;
             $parsed[$name] = $line;
         }
 
