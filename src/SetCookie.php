@@ -2,7 +2,7 @@
 
 namespace Bag2\Cookie;
 
-use const DATE_COOKIE;
+use const DATE_RFC7231;
 use DomainException;
 use function gmdate;
 use function is_int;
@@ -115,9 +115,9 @@ final class SetCookie
         if ($expires > 0) {
             assert(is_int($expires));
 
-            $expires_str = gmdate(DATE_COOKIE, $expires);
+            $expires_str = gmdate(DATE_RFC7231, $expires);
             $max_age = max(0, $expires - $now);
-            $line .= '; expires=' . $expires_str . '; Max-Age=' . $max_age;
+            $line .= '; Expires=' . $expires_str . '; Max-Age=' . $max_age;
         }
 
         $path = $this->options['path'] ?? '';
@@ -128,19 +128,19 @@ final class SetCookie
                 throw new DomainException('Cookie paths cannot contain any of the following \',; \\t\\r\\n\\013\\014\'');
             }
 
-            $line .= '; path=' . $path;
+            $line .= '; Path=' . $path;
         }
 
         $domain = $this->options['domain'] ?? '';
         if ($domain !== '') {
             assert(is_string($domain));
 
-            $line .= '; domain=' . urlencode($domain);
+            $line .= '; Domain=' . urlencode($domain);
         }
 
         $secure = $this->options['secure'] ?? false;
         if ($secure) {
-            $line .= '; secure';
+            $line .= '; Secure';
         }
 
         $httponly = $this->options['httponly'] ?? false;

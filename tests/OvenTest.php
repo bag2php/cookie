@@ -87,8 +87,8 @@ final class OvenTest extends TestCase
             ->add('Name2', 'value', ['expires' => self::NOW + 3600]);
 
         $expected = [
-            'Name1=value; expires=Sunday, 12-Jan-2020 08:25:56 GMT; Max-Age=3600',
-            'Name2=value; expires=Sunday, 12-Jan-2020 08:25:56 GMT; Max-Age=3600',
+            'Name1=value; Expires=Sun, 12 Jan 2020 08:25:56 GMT; Max-Age=3600',
+            'Name2=value; Expires=Sun, 12 Jan 2020 08:25:56 GMT; Max-Age=3600',
         ];
 
         $actual = $subject->setTo($response, self::NOW);
@@ -98,7 +98,7 @@ final class OvenTest extends TestCase
 
         $expected = [
             'Name1=VALUE',
-            'Name2=value; expires=Sunday, 12-Jan-2020 08:25:56 GMT; Max-Age=3600',
+            'Name2=value; Expires=Sun, 12 Jan 2020 08:25:56 GMT; Max-Age=3600',
         ];
 
         $actual = $subject->setTo($actual, self::NOW);
@@ -108,7 +108,7 @@ final class OvenTest extends TestCase
 
         $expected = [
             'Name1=VALUE',
-            'Name2=value; expires=Sunday, 12-Jan-2020 08:25:56 GMT; Max-Age=3600',
+            'Name2=value; Expires=Sun, 12 Jan 2020 08:25:56 GMT; Max-Age=3600',
         ];
 
         $actual = $subject->appendTo($actual, self::NOW);

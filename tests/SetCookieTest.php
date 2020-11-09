@@ -73,7 +73,7 @@ final class SetCookieTest extends TestCase
                         'samesite' => 'Strict',
                     ],
                 ],
-                'expected_line' => 'Full=Option; expires=Sunday, 12-Jan-2020 08:25:56 GMT; Max-Age=3600; path=/dir/; domain=cookie.example.net; secure; HttpOnly; SameSite=Strict',
+                'expected_line' => 'Full=Option; Expires=Sun, 12 Jan 2020 08:25:56 GMT; Max-Age=3600; Path=/dir/; Domain=cookie.example.net; Secure; HttpOnly; SameSite=Strict',
             ],
             [
                 'name' => 'Expires',
@@ -103,7 +103,7 @@ final class SetCookieTest extends TestCase
                         'expires' => 1,
                     ],
                 ],
-                'expected_line' => 'Expires=is+one.; expires=Thursday, 01-Jan-1970 00:00:01 GMT; Max-Age=0',
+                'expected_line' => 'Expires=is+one.; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0',
             ],
             [
                 'name' => 'Expires',
@@ -118,7 +118,7 @@ final class SetCookieTest extends TestCase
                         'expires' => self::NOW,
                     ],
                 ],
-                'expected_line' => 'Expires=is+now.; expires=Sunday, 12-Jan-2020 07:25:56 GMT; Max-Age=0',
+                'expected_line' => 'Expires=is+now.; Expires=Sun, 12 Jan 2020 07:25:56 GMT; Max-Age=0',
             ],
         ];
     }
