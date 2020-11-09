@@ -2,10 +2,14 @@
 
 namespace Bag2\Cookie;
 
+use function array_values;
 use ArrayIterator;
+use function count;
 use Countable;
+use function explode;
 use IteratorAggregate;
 use Psr\Http\Message\ResponseInterface;
+use function time;
 
 /**
  * Cookie Oven
@@ -49,14 +53,14 @@ class Oven implements IteratorAggregate, Countable
         $cookie_lines = $this->parseLines($response->getHeader('Set-Cookie'));
 
         if ($now === null) {
-            $now = \time();
+            $now = time();
         }
 
         foreach ($this->bag as $name => $cookie) {
             $cookie_lines[$name] = $cookie->compileHeaderLine($now);
         }
 
-        return $response->withHeader('Set-Cookie', \array_values($cookie_lines));
+        return $response->withHeader('Set-Cookie', array_values($cookie_lines));
     }
 
     /**
@@ -64,7 +68,7 @@ class Oven implements IteratorAggregate, Countable
      */
     public function count()
     {
-        return \count($this->bag);
+        return count($this->bag);
     }
 
     /**
@@ -103,7 +107,7 @@ class Oven implements IteratorAggregate, Countable
     {
         $parsed = [];
         foreach ($cookie_lines as $i => $line) {
-            $name = \explode('=', $line, 2)[0] ?? (string)$i;
+            $name = explode('=', $line, 2)[0] ?? (string)$i;
             $parsed[$name] = $line;
         }
 
@@ -116,7 +120,7 @@ class Oven implements IteratorAggregate, Countable
     public function setTo(ResponseInterface $response, ?int $now = null): ResponseInterface
     {
         if ($now === null) {
-            $now = \time();
+            $now = time();
         }
 
         $cookie_lines = [];
@@ -124,6 +128,6 @@ class Oven implements IteratorAggregate, Countable
             $cookie_lines[$name] = $cookie->compileHeaderLine($now);
         }
 
-        return $response->withHeader('Set-Cookie', \array_values($cookie_lines));
+        return $response->withHeader('Set-Cookie', array_values($cookie_lines));
     }
 }

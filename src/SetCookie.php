@@ -2,8 +2,14 @@
 
 namespace Bag2\Cookie;
 
+use function date;
 use DomainException;
+use function is_int;
+use function is_string;
+use function max;
 use OutOfRangeException;
+use function preg_match;
+use function urlencode;
 
 /**
  * Cookie class for HTTP Set-Cookie header
@@ -95,22 +101,22 @@ final class SetCookie
 
     public function compileHeaderLine(int $now): string
     {
-        $line = \urlencode($this->name) . '=' . \urlencode($this->value);
+        $line = urlencode($this->name) . '=' . urlencode($this->value);
 
         $expires = $this->options['expires'] ?? 0;
         if ($expires > 0) {
-            assert(\is_int($expires));
+            assert(is_int($expires));
 
-            $expires_str = \date(DATE_COOKIE, $expires);
-            $max_age = \max(0, $expires - $now);
+            $expires_str = date(DATE_COOKIE, $expires);
+            $max_age = max(0, $expires - $now);
             $line .= '; expires=' . $expires_str . '; Max-Age=' . $max_age;
         }
 
         $path = $this->options['path'] ?? '';
         if ($path !== '') {
-            assert(\is_string($path));
+            assert(is_string($path));
 
-            if (\preg_match(self::RE_MALFORMED_PATH, $path)) {
+            if (preg_match(self::RE_MALFORMED_PATH, $path)) {
                 throw new DomainException('Cookie paths cannot contain any of the following \',; \\t\\r\\n\\013\\014\'');
             }
 
@@ -119,9 +125,9 @@ final class SetCookie
 
         $domain = $this->options['domain'] ?? '';
         if ($domain !== '') {
-            assert(\is_string($domain));
+            assert(is_string($domain));
 
-            $line .= '; domain=' . \urlencode($domain);
+            $line .= '; domain=' . urlencode($domain);
         }
 
         $secure = $this->options['secure'] ?? false;
@@ -136,7 +142,7 @@ final class SetCookie
 
         $samesite = $this->options['samesite'] ?? '';
         if ($samesite !== '') {
-            $line .= '; SameSite=' . \urlencode($samesite);
+            $line .= '; SameSite=' . urlencode($samesite);
         }
 
         return $line;

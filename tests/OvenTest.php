@@ -2,6 +2,8 @@
 
 namespace Bag2\Cookie;
 
+use function count;
+
 final class OvenTest extends TestCase
 {
     private const NOW = 1578813956;
@@ -35,7 +37,7 @@ final class OvenTest extends TestCase
             $this->assertSame($expected->options, $actual->options);
         }
 
-        $this->assertSame(\count($expected_cookies), \count($subject));
+        $this->assertSame(count($expected_cookies), count($subject));
     }
 
     /**

@@ -3,8 +3,8 @@
 namespace Bag2\Cookie\functions;
 
 use Badoo\SoftMocks;
-use Bag2\Cookie\Oven;
 use Bag2\Cookie\Emitter;
+use Bag2\Cookie\Oven;
 
 final class EmitTest extends \Bag2\Cookie\TestCase
 {
@@ -43,7 +43,8 @@ final class EmitTest extends \Bag2\Cookie\TestCase
         $this->subject = $emitter;
 
         SoftMocks::redefineFunction(
-            'Bag2\Cookie\create_emitter', '',
+            'Bag2\Cookie\create_emitter',
+            '',
             static function () use ($emitter) {
                 return $emitter;
             }

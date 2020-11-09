@@ -5,6 +5,7 @@ namespace Bag2\Cookie\Emitter;
 use AssertionError;
 use Badoo\SoftMocks;
 use Bag2\Cookie\TestCase;
+use function ksort;
 
 final class PhpLegacyFunctionTest extends TestCase
 {
@@ -39,7 +40,7 @@ final class PhpLegacyFunctionTest extends TestCase
                 'httponly' => $httponly,
             ];
 
-            \ksort($receive);
+            ksort($receive);
 
             return true;
         });
@@ -68,7 +69,7 @@ final class PhpLegacyFunctionTest extends TestCase
             ];
         }
 
-        \ksort($expected);
+        ksort($expected);
 
         $subject = $this->subject;
 

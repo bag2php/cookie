@@ -3,8 +3,8 @@
 namespace Bag2\Cookie\functions;
 
 use Badoo\SoftMocks;
-use Bag2\Cookie\Oven;
 use Bag2\Cookie\Emitter;
+use Bag2\Cookie\Oven;
 
 final class SetCookieTest extends \Bag2\Cookie\TestCase
 {
@@ -19,7 +19,8 @@ final class SetCookieTest extends \Bag2\Cookie\TestCase
         $received = &$this->received;
 
         SoftMocks::redefineFunction(
-            'Bag2\Cookie\emit', '',
+            'Bag2\Cookie\emit',
+            '',
             static function (Oven $cookie_oven) use (&$received) {
                 $received = $cookie_oven;
 
