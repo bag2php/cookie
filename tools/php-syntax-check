@@ -1,0 +1,72 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+/**
+ * プロジェクト内の全PHPファイルに対して文法チェックを実施する
+ *
+ * @author USAMI Kenta <tadsan@zonu.me>
+ * @copyright 2019 USAMI Kenta
+ * @license https://opensource.org/licenses/MIT MIT
+ */
+
+/**
+ * 検査から除外するファイルがあれば、ここに列挙する
+ */
+const IGNORE_LIST = [
+    // 'skeleton.php',
+];
+
+$project_root = exec('git rev-parse --show-toplevel');
+
+fputs(STDERR, "chdir {$project_root}" . PHP_EOL);
+chdir($project_root);
+
+exec('git ls-files', $output);
+
+$failed = false;
+
+/**
+ * php -l コマンドを起動する
+ *
+ * @phan-return array{0:string[],1:int}
+ */
+$exec_php_l = function (string $file): array {
+    exec(sprintf('php -l %s', escapeshellarg($file)), $lint_output, $status);
+
+    return [$lint_output, $status];
+};
+
+$is_ignored_file = function (string $file): bool {
+    if (!preg_match('/\.php\z/i', $file)) {
+        return true;
+    }
+
+    foreach (IGNORE_LIST as $i) {
+        if (strpos($file, $i) !== false) {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+foreach ($output as $i => $file) {
+    if ($is_ignored_file($file)) {
+        continue;
+    }
+
+    [$lint_output, $lint_status] = $exec_php_l($file);
+
+    if ($lint_status !== 0) {
+        $failed = true;
+        echo array_shift($lint_output), PHP_EOL;
+    }
+}
+
+fputs(STDERR, sprintf('Checked %d files', $i + 1) . PHP_EOL);
+
+if ($failed) {
+    exit(1);
+}
+
+fputs(STDERR, 'No syntax errors detected' . PHP_EOL);
