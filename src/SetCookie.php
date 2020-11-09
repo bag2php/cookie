@@ -2,8 +2,9 @@
 
 namespace Bag2\Cookie;
 
-use function date;
+use const DATE_COOKIE;
 use DomainException;
+use function gmdate;
 use function is_int;
 use function is_string;
 use function max;
@@ -99,6 +100,13 @@ final class SetCookie
         }
     }
 
+    /**
+     * Compile cookie header
+     *
+     * @see https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie
+     * @see https://developer.mozilla.org/docs/Web/HTTP/Headers/Date
+     * @phpstan-param 0|positive-int $now
+     */
     public function compileHeaderLine(int $now): string
     {
         $line = urlencode($this->name) . '=' . urlencode($this->value);
@@ -107,7 +115,7 @@ final class SetCookie
         if ($expires > 0) {
             assert(is_int($expires));
 
-            $expires_str = date(DATE_COOKIE, $expires);
+            $expires_str = gmdate(DATE_COOKIE, $expires);
             $max_age = max(0, $expires - $now);
             $line .= '; expires=' . $expires_str . '; Max-Age=' . $max_age;
         }
