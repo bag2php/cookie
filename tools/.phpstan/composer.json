@@ -1,0 +1,14 @@
+{
+    "require": {
+        "phpstan/phpstan": "^0.12.52",
+        "phpstan/phpstan-phpunit": "^0.12.16",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan-deprecation-rules": "^0.12.5"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "discard-changes": true,
+        "preferred-install": "dist"
+    }
+}
