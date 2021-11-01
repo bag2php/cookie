@@ -54,6 +54,11 @@ class Oven implements IteratorAggregate, Countable
      */
     public function appendTo(ResponseInterface $response, ?int $now = null): ResponseInterface
     {
+        // Return directly when bag is empty
+        if (empty($this->bag)) {
+            return $response;
+        }
+
         $cookie_lines = $this->parseLines($response->getHeader('Set-Cookie'));
 
         if ($now === null) {
