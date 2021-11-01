@@ -1,0 +1,42 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to static method redefineConstant\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 2
+			path: tests/Emitter/Php73FunctionTest.php
+
+		-
+			message: "#^Call to static method redefineFunction\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 1
+			path: tests/Emitter/Php73FunctionTest.php
+
+		-
+			message: "#^Call to static method redefineConstant\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 2
+			path: tests/Emitter/PhpLegacyFunctionTest.php
+
+		-
+			message: "#^Call to static method redefineFunction\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 1
+			path: tests/Emitter/PhpLegacyFunctionTest.php
+
+		-
+			message: "#^Call to static method restoreAll\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 1
+			path: tests/SoftMocksTestCase.php
+
+		-
+			message: "#^Call to static method redefineConstant\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 1
+			path: tests/functions/CreateEmitterTest.php
+
+		-
+			message: "#^Call to static method redefineFunction\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 1
+			path: tests/functions/EmitTest.php
+
+		-
+			message: "#^Call to static method redefineFunction\\(\\) on an unknown class Badoo\\\\SoftMocks\\.$#"
+			count: 1
+			path: tests/functions/SetcookieTest.php
+
