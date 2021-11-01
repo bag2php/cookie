@@ -20,6 +20,9 @@ final class AssertOptionsTest extends TestCase
         SetCookie::assertOptions($input);
     }
 
+    /**
+     * @return array<array{0:array<string,string>,1:string}>
+     */
     public function optionsProvider(): array
     {
         return [
