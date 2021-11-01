@@ -47,6 +47,10 @@ class Oven implements IteratorAggregate, Countable
 
     /**
      * Append cookies to PSR-7 HTTP Response Set-Cookie header
+     *
+     * @template T of ResponseInterface
+     * @phpstan-param T $response
+     * @phpstan-return T
      */
     public function appendTo(ResponseInterface $response, ?int $now = null): ResponseInterface
     {
