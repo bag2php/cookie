@@ -5,10 +5,12 @@ namespace Bag2\Cookie;
 use DomainException;
 use OutOfRangeException;
 use function gmdate;
+use function in_array;
 use function is_int;
 use function is_string;
 use function max;
 use function preg_match;
+use function strpbrk;
 use function urlencode;
 use const DATE_RFC7231;
 
@@ -29,10 +31,13 @@ final class SetCookie
         'domain' => 'string',
         'secure' => 'bool',
         'httponly' => 'bool',
-        'samesite' => 'bool',
+        'samesite' => ['Lax', 'None', 'Strict'],
     ];
 
     private const RE_MALFORMED_PATH = "/[,; \t\r\n\013\014]/";
+
+    protected const ILLEGAL_COOKIE_CHARACTER = '",", ";", " ", "\t", "\r", "\n", "\013", or "\014"';
+    protected const ILLEGAL_OPTION_FORMAT = 'Cookie "%s" option cannot contain ' . self::ILLEGAL_COOKIE_CHARACTER;
 
     /**
      * @var string
@@ -54,8 +59,10 @@ final class SetCookie
      * @phpstan-param options $options
      * @phan-suppress PhanAccessReadOnlyMagicProperty
      */
-    public function __construct(string $name, $value, array $options = [])
+    final public function __construct(string $name, $value, array $options = [])
     {
+        self::assertName($name);
+        self::assertValue($value);
         self::assertOptions($options);
 
         $this->name = $name;
@@ -101,6 +108,25 @@ final class SetCookie
     }
 
     /**
+     * @psalm-assert non-empty-string $name
+     */
+    public static function assertName(string $name): void
+    {
+        if ($name === '') {
+            throw new DomainException('Cookie names must not be empty');
+        }
+
+        if (strpbrk($name, "=,; \t\r\n\013\014") !== false) {
+            throw new DomainException('Cookie names cannot contain "=", ' . self::ILLEGAL_COOKIE_CHARACTER);
+        }
+    }
+
+    public static function assertValue(string $value): void
+    {
+        // noop
+    }
+
+    /**
      * @pure
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
      * @psalm-param array<mixed> $options
@@ -112,6 +138,24 @@ final class SetCookie
             if (!isset(self::KNOWN_OPTIONS[$name])) {
                 throw new DomainException("{$name} is unexpected cookie option.");
             }
+        }
+
+        if (strpbrk($options['path'] ?? '', ",; \t\r\n\013\014")) {
+            throw new DomainException(sprintf(self::ILLEGAL_OPTION_FORMAT, 'path'));
+        }
+
+        if (strpbrk($options['domain'] ?? '', ",; \t\r\n\013\014")) {
+            throw new DomainException(sprintf(self::ILLEGAL_OPTION_FORMAT, 'domain'));
+        }
+
+        if (isset($options['secure']) && !is_bool($options['secure'])) {
+            throw new DomainException('Cookie "secure" option accept only bool');
+        }
+
+        if (isset($options['samesite']) &&
+            !in_array($options['samesite'], self::KNOWN_OPTIONS['samesite'], true)
+        ) {
+            throw new DomainException('Cookie "secure" option allows only "Lax", "None" and "Strict"');
         }
     }
 
