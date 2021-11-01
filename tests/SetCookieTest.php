@@ -125,6 +125,21 @@ final class SetCookieTest extends TestCase
                 ],
                 'expected_line' => 'Expires=is+now.; Expires=Sun, 12 Jan 2020 07:25:56 GMT; Max-Age=0',
             ],
+            [
+                'name' => 'Expires',
+                'value' => 'is past.',
+                'options' => [
+                    'expires' => self::NOW - 1,
+                ],
+                'expected_array' => [
+                    'name' => 'Expires',
+                    'value' => 'is past.',
+                    'options' => [
+                        'expires' => self::NOW - 1,
+                    ],
+                ],
+                'expected_line' => 'Expires=is+past.; Expires=Sun, 12 Jan 2020 07:25:55 GMT; Max-Age=0',
+            ],
         ];
     }
 }
