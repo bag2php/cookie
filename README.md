@@ -30,11 +30,17 @@ This package provides common features whether your project is **PSR-7 based** or
 ```php
 <?php
 
+use Bag2\Cookie\CookieOvenBuilder;
+
 $now = \time();
 
-$cookie = Bag2\Cookie\oven(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
+// [Recomended] Create an oven by CookieOvenBuilder
+$cookie = (new CookieOvenBuilder)->withSameSite('Strict')->build();
 $cookie->add('NameA', 'value 1', ['expires' => $now + 1200]);
 $cookie->add('NameB', 'value 2', ['expires' => $now + 3600]);
+
+// [Obsolete] Create an oven by function
+$cookie = Bag2\Cookie\oven(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
 ```
 
 CookieOven manages cookies by key-value. Please note that CookieOven can only have one cookie with the same name.
