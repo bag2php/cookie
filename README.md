@@ -25,7 +25,7 @@ This package provides common features whether your project is **PSR-7 based** or
 
 ### Create Cookie Oven
 
-**CookieOven** is an object that can hold multiple cookies.
+**`Oven`** is an object that can hold multiple `Set-Cookie` entries.  Use `CookieOvenBuilder` to create an `Oven` object.  The value specified in the constructor or the "with" method builds the default value for the option added to the `Set-Cookie`.
 
 ```php
 <?php
@@ -34,18 +34,18 @@ use Bag2\Cookie\CookieOvenBuilder;
 
 $now = \time();
 
-// [Recomended] Create an oven by CookieOvenBuilder
+// [Recomended] Create an Oven instance by CookieOvenBuilder
 $cookie = (new CookieOvenBuilder)->withSameSite('Strict')->build();
 $cookie->add('NameA', 'value 1', ['expires' => $now + 1200]);
 $cookie->add('NameB', 'value 2', ['expires' => $now + 3600]);
 
-// [Obsolete] Create an oven by function
+// [Obsolete] Create an Oven instance by function
 $cookie = Bag2\Cookie\oven(['secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
 ```
 
-CookieOven manages cookies by key-value. Please note that CookieOven can only have one cookie with the same name.
+**`Oven`** manages cookies by key-value. Please note that CookieOven can only have one cookie with the same name.
 
-`$default_options` passed to the CookieOven constructor is combined with `$option` passed to the `CookieOven::add()` method.
+`$default_options` passed to the `Oven` constructor is combined with `$option` passed to the `CookieOven::add()` method.
 
 The `$options` received in the 3rd argument is compatible with `setcookie()` function added in PHP 7.3.  Pleese see [PHP: setcookie - Manual](https://www.php.net/setcookie).  All option names are lowercase.
 
