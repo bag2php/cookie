@@ -34,8 +34,6 @@ final class SetCookie
         'samesite' => ['Lax', 'None', 'Strict'],
     ];
 
-    private const RE_MALFORMED_PATH = "/[,; \t\r\n\013\014]/";
-
     protected const ILLEGAL_COOKIE_CHARACTER = '",", ";", " ", "\t", "\r", "\n", "\013", or "\014"';
     protected const ILLEGAL_OPTION_FORMAT = 'Cookie "%s" option cannot contain ' . self::ILLEGAL_COOKIE_CHARACTER;
 
@@ -121,7 +119,11 @@ final class SetCookie
         }
     }
 
-    public static function assertValue(string $value): void
+    /**
+     * @param int|string $value
+     * @psalm-assert int|string $value
+     */
+    public static function assertValue($value): void
     {
         // noop
     }
@@ -140,11 +142,13 @@ final class SetCookie
             }
         }
 
-        if (strpbrk($options['path'] ?? '', ",; \t\r\n\013\014")) {
+        $path = $options['path'] ?? '';
+        if (!is_string($path) || strpbrk($path, ",; \t\r\n\013\014")) {
             throw new DomainException(sprintf(self::ILLEGAL_OPTION_FORMAT, 'path'));
         }
 
-        if (strpbrk($options['domain'] ?? '', ",; \t\r\n\013\014")) {
+        $domain = $options['domain'] ?? '';
+        if (!is_string($domain) || strpbrk($domain, ",; \t\r\n\013\014")) {
             throw new DomainException(sprintf(self::ILLEGAL_OPTION_FORMAT, 'domain'));
         }
 
