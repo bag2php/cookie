@@ -10,7 +10,7 @@ use Bag2\Cookie\Oven;
  *
  * @phpstan-import-type options from CookieEmitter
  */
-final class EmitTest extends \Bag2\Cookie\TestCase
+final class EmitTest extends \Bag2\Cookie\SoftMocksTestCase
 {
     /**
      * @var ?array<array{name:string,value:string,options:array}>

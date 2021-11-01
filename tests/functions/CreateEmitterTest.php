@@ -6,7 +6,7 @@ use Badoo\SoftMocks;
 use Bag2\Cookie\Emitter\Php73Function;
 use Bag2\Cookie\Emitter\PhpLegacyFunction;
 
-final class CreateEmitterTest extends \Bag2\Cookie\TestCase
+final class CreateEmitterTest extends \Bag2\Cookie\SoftMocksTestCase
 {
     /**
      * @dataProvider versionsProvider
