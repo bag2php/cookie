@@ -3,7 +3,7 @@
     "description": "Cookie functions over PSR-7 and setcookie() function.",
     "license": "Apache-2.0",
     "require": {
-        "php": "^7.1",
+        "php": ">=7.1",
         "ext-pcre": "*",
         "psr/http-message": "^1.0"
     },
