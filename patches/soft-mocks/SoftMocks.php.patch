@@ -1,0 +1,26 @@
+From 7547e5db94b47929f67142394f77d693ae58cb59 Mon Sep 17 00:00:00 2001
+From: "(B3none)" <ablackham2000@gmail.com>
+Date: Wed, 18 Aug 2021 15:18:37 +0100
+Subject: [PATCH] Update installed variable if installed.json is formatted the
+ new way
+
+---
+ src/Badoo/SoftMocks.php | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/Badoo/SoftMocks.php b/src/Badoo/SoftMocks.php
+index 05ecf3c..c521e39 100644
+--- a/src/Badoo/SoftMocks.php
++++ b/src/Badoo/SoftMocks.php
+@@ -687,6 +687,11 @@ protected static function initParserVersion()
+                 "Can't parse installed packages json for get nikic/php-parser version for for right rewritten files cache: {$error}"
+             );
+         }
++        
++        // If the installed.json is the latest version then update the installed variable
++        if (array_key_exists('packages', $installed)) {
++            $installed = $installed['packages'];
++        }
+         foreach ($installed as $package) {
+             if (!isset($package['name'], $package['version'])) {
+                 continue;

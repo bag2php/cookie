@@ -15,7 +15,7 @@
         "php-http/psr7-integration-tests": "^1.0",
         "phpunit/phpunit": "^7",
         "psr/http-factory": "^1.0",
-        "vaimo/composer-patches": "^4.20"
+        "vaimo/composer-patches": "^4.22"
     },
     "autoload": {
         "files": ["src/functions.php"],
@@ -30,5 +30,15 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "patches-dev": {
+            "badoo/soft-mocks": {
+                "Adapt SoftMocks to Composer 2.0": {
+                    "source": "patches/soft-mocks/SoftMocks.php.patch",
+                    "version": ">= 3.1.1"
+                }
+            }
+        }
     }
 }
