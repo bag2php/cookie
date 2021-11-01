@@ -15,6 +15,7 @@ final class Php73Function implements Emitter
     {
         assert(PHP_VERSION_ID >= 70300);
 
+        /** @psalm-suppress InvalidArgument */
         return setcookie($name, $value, $options);
     }
 }
