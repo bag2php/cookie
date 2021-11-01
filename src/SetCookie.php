@@ -10,8 +10,8 @@ use function is_int;
 use function is_string;
 use function max;
 use function preg_match;
+use function rawurlencode;
 use function strpbrk;
-use function urlencode;
 use const DATE_RFC7231;
 
 /**
@@ -168,7 +168,7 @@ final class SetCookie
      */
     public function compileHeaderLine(int $now): string
     {
-        $line = urlencode($this->name) . '=' . urlencode($this->value);
+        $line = "{$this->name}=" . $this->encodeValue($this->value);
 
         $expires = $this->options['expires'] ?? 0;
         if ($expires > 0) {
@@ -176,25 +176,17 @@ final class SetCookie
 
             $expires_str = gmdate(DATE_RFC7231, $expires);
             $max_age = max(0, $expires - $now);
-            $line .= '; Expires=' . $expires_str . '; Max-Age=' . $max_age;
+            $line .= "; Expires={$expires_str}; Max-Age={$max_age}";
         }
 
         $path = $this->options['path'] ?? '';
         if ($path !== '') {
-            assert(is_string($path));
-
-            if (preg_match(self::RE_MALFORMED_PATH, $path)) {
-                throw new DomainException('Cookie paths cannot contain any of the following \',; \\t\\r\\n\\013\\014\'');
-            }
-
             $line .= '; Path=' . $path;
         }
 
         $domain = $this->options['domain'] ?? '';
         if ($domain !== '') {
-            assert(is_string($domain));
-
-            $line .= '; Domain=' . urlencode($domain);
+            $line .= '; Domain=' . rawurlencode($domain);
         }
 
         $secure = $this->options['secure'] ?? false;
@@ -209,15 +201,24 @@ final class SetCookie
 
         $samesite = $this->options['samesite'] ?? '';
         if ($samesite !== '') {
-            $line .= '; SameSite=' . urlencode($samesite);
+            $line .= '; SameSite=' . rawurlencode($samesite);
         }
 
         return $line;
     }
 
     /**
+     * @param int|string $value
+     */
+    public function encodeValue($value): string
+    {
+        return rawurlencode((string)$value);
+    }
+
+    /**
      * @param array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}} $data
      * @phpstan-param array{name:non-empty-string,value:string,options:options} $data
+     * @return static
      */
     public function fromArray(array $data): SetCookie
     {
