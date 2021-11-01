@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use function array_values;
 use function count;
 use function explode;
+use function strpos;
 use function time;
 
 /**
@@ -132,14 +133,18 @@ class Oven implements IteratorAggregate, Countable
     /**
      * @pure
      * @phpstan-param list<string> $cookie_lines
-     * @return array<string,string>
+     * @phpstan-return array<array-key,string>
      */
     public function parseLines(array $cookie_lines): array
     {
         $parsed = [];
         foreach ($cookie_lines as $i => $line) {
-            $name = explode('=', $line, 2)[0] ?? (string)$i;
-            $parsed[$name] = $line;
+            if (strpos($line, '=') !== false) {
+                $name = explode('=', $line, 2)[0];
+                $parsed[$name] = $line;
+            } else {
+                $parsed[] = $line;
+            }
         }
 
         return $parsed;
