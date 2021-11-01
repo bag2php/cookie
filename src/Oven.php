@@ -131,7 +131,7 @@ class Oven implements IteratorAggregate, Countable
 
     /**
      * @pure
-     * @param string[] $cookie_lines
+     * @phpstan-param list<string> $cookie_lines
      * @return array<string,string>
      */
     public function parseLines(array $cookie_lines): array
