@@ -23,7 +23,7 @@ final class SetCookieTest extends TestCase
     }
 
     /**
-     * @return array<array>
+     * @return array<array<mixed>>
      */
     public function cookieProvider(): array
     {
