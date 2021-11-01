@@ -40,6 +40,7 @@ class Oven implements IteratorAggregate, Countable
     }
 
     /**
+     * @phpstan-impure
      * @phpstan-param non-empty-string $name
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
@@ -56,6 +57,7 @@ class Oven implements IteratorAggregate, Countable
     /**
      * Append cookies to PSR-7 HTTP Response Set-Cookie header
      *
+     * @phpstan-pure
      * @template T of ResponseInterface
      * @phpstan-param T $response
      * @phpstan-param ?positive-int $now
@@ -83,6 +85,7 @@ class Oven implements IteratorAggregate, Countable
     }
 
     /**
+     * @psalm-mutation-free
      * @return int
      */
     public function count()
@@ -91,6 +94,8 @@ class Oven implements IteratorAggregate, Countable
     }
 
     /**
+     * @phpstan-impure
+     * @psalm-mutation-free
      * @return $this
      */
     public function delete(string $name): self
@@ -100,11 +105,17 @@ class Oven implements IteratorAggregate, Countable
         return $this;
     }
 
+    /**
+     * @psalm-mutation-free
+     */
     public function has(string $name): bool
     {
         return isset($this->bag[$name]);
     }
 
+    /**
+     * @psalm-mutation-free
+     */
     public function get(string $name): SetCookie
     {
         return $this->bag[$name];
@@ -119,6 +130,7 @@ class Oven implements IteratorAggregate, Countable
     }
 
     /**
+     * @pure
      * @param string[] $cookie_lines
      * @return array<string,string>
      */
@@ -136,6 +148,7 @@ class Oven implements IteratorAggregate, Countable
     /**
      * Set cookies to PSR-7 HTTP Response Set-Cookie header
      *
+     * @phpstan-pure
      * @phpstan-param ?positive-int $now
      */
     public function setTo(ResponseInterface $response, ?int $now = null): ResponseInterface

@@ -13,8 +13,9 @@ use function urlencode;
 use const DATE_RFC7231;
 
 /**
- * Cookie class for HTTP Set-Cookie header
+ * Set-Cookie entry class
  *
+ * @psalm-external-mutation-free
  * @phpstan-import-type options from Emitter
  * @property-read non-empty-string $name
  * @property-read string $value
@@ -83,7 +84,7 @@ final class SetCookie
     /**
      * @param string $name
      * @param string|int $_value
-     * @return void
+     * @phpstan-return never
      */
     public function __set($name, $_value)
     {
@@ -92,6 +93,7 @@ final class SetCookie
 
     /**
      * @param string $name
+     * @phpstan-return never
      */
     public function __unset($name)
     {
@@ -99,6 +101,7 @@ final class SetCookie
     }
 
     /**
+     * @pure
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
      * @psalm-param array<mixed> $options
      * @psalm-assert options $options
