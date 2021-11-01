@@ -33,11 +33,8 @@ final class SetCookieTest extends \Bag2\Cookie\TestCase
     {
         $expected = (new Oven())->add('Name', '', [
             'expires' => 0,
-            'path' => '',
-            'domain' => '',
             'secure' => false,
             'httponly' => false,
-            'samesite' => false,
         ]);
         $actual = \Bag2\Cookie\setcookie('Name');
 
