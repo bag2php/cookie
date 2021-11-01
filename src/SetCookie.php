@@ -15,9 +15,10 @@ use const DATE_RFC7231;
 /**
  * Cookie class for HTTP Set-Cookie header
  *
- * @property-read string $name
+ * @phpstan-import-type options from Emitter
+ * @property-read non-empty-string $name
  * @property-read string $value
- * @property-read array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+ * @property-read array{expires?:0|positive-int,path?:non-empty-string,domain?:non-empty-string,secure?:bool,httponly?:bool,samesite?:'Lax'|'None'|'Strict'} $options
  */
 final class SetCookie
 {
@@ -32,16 +33,24 @@ final class SetCookie
 
     private const RE_MALFORMED_PATH = "/[,; \t\r\n\013\014]/";
 
-    /** @var string */
+    /**
+     * @var string
+     * @phpstan-var non-empty-string
+     */
     private $name;
     /** @var string */
     private $value;
-    /** @var array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} */
+    /**
+     * @var array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}
+     * @phpstan-var options
+     */
     private $options;
 
     /**
+     * @phpstan-param non-empty-string $name
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+     * @phpstan-param options $options
      * @phan-suppress PhanAccessReadOnlyMagicProperty
      */
     public function __construct(string $name, $value, array $options = [])
@@ -50,6 +59,7 @@ final class SetCookie
 
         $this->name = $name;
         $this->value = (string)$value;
+        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->options = $options;
     }
 
@@ -90,6 +100,8 @@ final class SetCookie
 
     /**
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+     * @psalm-param array<mixed> $options
+     * @psalm-assert options $options
      */
     public static function assertOptions(array $options): void
     {
@@ -105,7 +117,7 @@ final class SetCookie
      *
      * @see https://developer.mozilla.org/docs/Web/HTTP/Headers/Set-Cookie
      * @see https://developer.mozilla.org/docs/Web/HTTP/Headers/Date
-     * @phpstan-param 0|positive-int $now
+     * @phpstan-param positive-int $now
      */
     public function compileHeaderLine(int $now): string
     {
@@ -158,6 +170,7 @@ final class SetCookie
 
     /**
      * @param array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}} $data
+     * @phpstan-param array{name:non-empty-string,value:string,options:options} $data
      */
     public function fromArray(array $data): SetCookie
     {
@@ -166,6 +179,7 @@ final class SetCookie
 
     /**
      * @return array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}}
+     * @phpstan-return array{name:non-empty-string,value:string,options:options}
      */
     public function toArray(): array
     {

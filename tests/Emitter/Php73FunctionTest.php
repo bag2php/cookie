@@ -4,13 +4,20 @@ namespace Bag2\Cookie\Emitter;
 
 use AssertionError;
 use Badoo\SoftMocks;
+use Bag2\Cookie\Emitter;
 use Bag2\Cookie\TestCase;
 
+/**
+ * @phpstan-import-type options from Emitter
+ */
 final class Php73FunctionTest extends TestCase
 {
-    /** @var Php73Function */
+    /** @var ?Php73Function */
     private $subject;
-    /** @var ?array{name:string,value:string,options:array} */
+    /**
+     * @var ?array{name:string,value:string,options:array}
+     * @phpstan-var ?array{name:non-empty-string,value:string,options:options}
+     */
     private $receive;
 
     public function setUp(): void
@@ -46,6 +53,7 @@ final class Php73FunctionTest extends TestCase
             'options' => ['expires' => 0],
         ];
         $subject = $this->subject;
+        assert($subject !== null);
 
         $this->assertTrue($subject('name', 'val', ['expires' => 0]));
         $this->assertSame($expected, $this->receive);
@@ -58,6 +66,7 @@ final class Php73FunctionTest extends TestCase
         SoftMocks::redefineConstant('PHP_VERSION_ID', 70100);
 
         $subject = $this->subject;
+        assert($subject !== null);
         $subject('name', 'val', ['expires' => 0]);
     }
 }

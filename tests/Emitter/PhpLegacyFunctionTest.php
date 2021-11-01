@@ -4,9 +4,13 @@ namespace Bag2\Cookie\Emitter;
 
 use AssertionError;
 use Badoo\SoftMocks;
+use Bag2\Cookie\Emitter;
 use Bag2\Cookie\TestCase;
 use function ksort;
 
+/**
+ * @phpstan-import-type options from Emitter
+ */
 final class PhpLegacyFunctionTest extends TestCase
 {
     /** @var PhpLegacyFunction */
@@ -51,6 +55,7 @@ final class PhpLegacyFunctionTest extends TestCase
     /**
      * @dataProvider cookieInputProvider
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $input
+     * @phpstan-param options $input
      * @param ?array{name:string,value:string,expires:int,path:string,domain:string,secure:bool,httponly:bool} $expected
      */
     public function test(array $input, $expected = null): void

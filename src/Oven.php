@@ -15,27 +15,35 @@ use function time;
  * Cookie Oven
  *
  * @implements IteratorAggregate<string,SetCookie>
+ * @phpstan-import-type options from Emitter
  */
 class Oven implements IteratorAggregate, Countable
 {
     /** @var array<string,SetCookie> */
     private $bag = [];
-    /** @var array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} */
+    /**
+     * @var array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}
+     * @phpstan-var options
+     */
     private $default_options;
 
     /**
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
+     * @phpstan-param options $default_options
      */
     public function __construct(array $default_options = [])
     {
         SetCookie::assertOptions($default_options);
 
+        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->default_options = $default_options;
     }
 
     /**
+     * @phpstan-param non-empty-string $name
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+     * @phpstan-param options $options
      * @return $this
      */
     public function add(string $name, $value, array $options = []): self
@@ -50,6 +58,7 @@ class Oven implements IteratorAggregate, Countable
      *
      * @template T of ResponseInterface
      * @phpstan-param T $response
+     * @phpstan-param ?positive-int $now
      * @phpstan-return T
      */
     public function appendTo(ResponseInterface $response, ?int $now = null): ResponseInterface
@@ -62,6 +71,7 @@ class Oven implements IteratorAggregate, Countable
         $cookie_lines = $this->parseLines($response->getHeader('Set-Cookie'));
 
         if ($now === null) {
+            /** @phpstan-var positive-int */
             $now = time();
         }
 
@@ -125,10 +135,13 @@ class Oven implements IteratorAggregate, Countable
 
     /**
      * Set cookies to PSR-7 HTTP Response Set-Cookie header
+     *
+     * @phpstan-param ?positive-int $now
      */
     public function setTo(ResponseInterface $response, ?int $now = null): ResponseInterface
     {
         if ($now === null) {
+            /** @var positive-int */
             $now = time();
         }
 

@@ -4,6 +4,9 @@ namespace Bag2\Cookie;
 
 use function count;
 
+/**
+ * @phpstan-import-type options from Emitter
+ */
 final class OvenTest extends TestCase
 {
     private const NOW = 1578813956;
@@ -11,7 +14,9 @@ final class OvenTest extends TestCase
     /**
      * @dataProvider bagProvider
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
+     * @phpstan-param options $default_options
      * @param array<array{0:string,1:string,2:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}}> $cookies
+     * @phpstan-param array<array{0:non-empty-string,1:string,2:options}> $cookies
      * @param SetCookie[] $expected_cookies
      */
     public function test($default_options, $cookies, $expected_cookies): void
@@ -41,7 +46,7 @@ final class OvenTest extends TestCase
     }
 
     /**
-     * @return array<array>
+     * @phpstan-return array<array{default_options:options,cookies:list<array{0:non-empty-string,1:string,2:options}>,expected_cookies:list<SetCookie>}>
      */
     public function bagProvider(): array
     {

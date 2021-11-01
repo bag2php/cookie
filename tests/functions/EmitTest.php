@@ -6,9 +6,16 @@ use Badoo\SoftMocks;
 use Bag2\Cookie\Emitter;
 use Bag2\Cookie\Oven;
 
+/**
+ *
+ * @phpstan-import-type options from Emitter
+ */
 final class EmitTest extends \Bag2\Cookie\TestCase
 {
-    /** @var array<array{name:string,value:string,options:array}> */
+    /**
+     * @var ?array<array{name:string,value:string,options:array}>
+     * @phpstan-var ?array<array{name:non-empty-string,value:string,options:options}>
+     */
     public $received;
     /** @var Emitter */
     protected $subject;
@@ -54,6 +61,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
     /**
      * @dataProvider cookieProvider
      * @param array{result:bool,received:array<array>} $expected
+     * @phpstan-param array{result:bool,received:list<options>} $expected
      */
     public function test(Oven $oven, array $expected): void
     {
@@ -64,7 +72,8 @@ final class EmitTest extends \Bag2\Cookie\TestCase
     }
 
     /**
-     * @return array<string,array{0:Oven,1:array{result:bool,received:array<array>}}>
+     * @return array<array{0:Oven,1:array{result:bool,received:array<array>}}>
+     * @phpstan-return array<array{0:Oven,1:array{result:bool,received:list<options>}}>
      */
     public function cookieProvider()
     {

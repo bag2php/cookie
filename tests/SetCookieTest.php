@@ -2,6 +2,9 @@
 
 namespace Bag2\Cookie;
 
+/**
+ * @phpstan-import-type options from Emitter
+ */
 final class SetCookieTest extends TestCase
 {
     private const NOW = 1578813956;
@@ -9,8 +12,10 @@ final class SetCookieTest extends TestCase
     /**
      * @dataProvider cookieProvider
      * @param string $name
+     * @phpstan-param non-empty-string $name
      * @param string|int $value
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
+     * @phpstan-param options $options
      * @param array{name:string,value:string,options:array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}} $expected_array
      * @param string $expected_line
      */

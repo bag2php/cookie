@@ -2,11 +2,17 @@
 
 namespace Bag2\Cookie;
 
+/**
+ * @phpstan-import-type options from Emitter
+ */
 final class EmitterTest extends TestCase
 {
     /** @var Emitter */
     protected $subject;
-    /** @var ?array{name:string,value:string,options:array} */
+    /**
+     * @var ?array{name:string,value:string,options:array}
+     * @phpstan-var ?array{name:non-empty-string,value:string,options:options}
+     */
     public $receive;
 
     public function setUp(): void
