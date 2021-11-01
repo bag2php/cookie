@@ -17,7 +17,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
      * @phpstan-var ?array<array{name:non-empty-string,value:string,options:options}>
      */
     public $received;
-    /** @var Emitter */
+    /** @var ?Emitter */
     protected $subject;
 
     public function setUp(): void
@@ -33,7 +33,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
                 $this->case = $case;
             }
 
-            public function __invoke(
+            public function emitCookie(
                 string $name,
                 string $value,
                 array $options

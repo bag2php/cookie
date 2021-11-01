@@ -36,7 +36,7 @@ namespace Bag2\Cookie
 
         foreach ($cookie_oven as $cookie) {
             [$name, $value, $options] = [$cookie->name, $cookie->value, $cookie->options];
-            $success = $success && $emitter($name, $value, $options);
+            $success = $success && $emitter->emitCookie($name, $value, $options);
         }
 
         return $success;

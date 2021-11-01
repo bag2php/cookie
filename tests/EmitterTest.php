@@ -7,7 +7,7 @@ namespace Bag2\Cookie;
  */
 final class EmitterTest extends TestCase
 {
-    /** @var Emitter */
+    /** @var ?Emitter */
     protected $subject;
     /**
      * @var ?array{name:string,value:string,options:array}
@@ -26,7 +26,7 @@ final class EmitterTest extends TestCase
                 $this->case = $case;
             }
 
-            public function __invoke(
+            public function emitCookie(
                 string $name,
                 string $value,
                 array $options
@@ -50,8 +50,9 @@ final class EmitterTest extends TestCase
             'options' => ['expires' => 0],
         ];
         $subject = $this->subject;
+        assert($subject !== null);
 
-        $this->assertTrue($subject('name', 'val', ['expires' => 0]));
+        $this->assertTrue($subject->emitCookie('name', 'val', ['expires' => 0]));
         $this->assertSame($expected, $this->receive);
     }
 }
