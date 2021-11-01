@@ -110,7 +110,7 @@ final class SetCookie
     {
         foreach ($options as $name => $_) {
             if (!isset(self::KNOWN_OPTIONS[$name])) {
-                throw new DomainException("{$name} in unexpected cookie option.");
+                throw new DomainException("{$name} is unexpected cookie option.");
             }
         }
     }
