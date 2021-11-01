@@ -4,11 +4,11 @@ namespace Bag2\Cookie\Emitter;
 
 use AssertionError;
 use Badoo\SoftMocks;
-use Bag2\Cookie\Emitter;
+use Bag2\Cookie\CookieEmitter;
 use Bag2\Cookie\TestCase;
 
 /**
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
 final class Php73FunctionTest extends TestCase
 {

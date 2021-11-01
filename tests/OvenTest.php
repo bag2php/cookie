@@ -5,7 +5,7 @@ namespace Bag2\Cookie;
 use function count;
 
 /**
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
 final class OvenTest extends TestCase
 {

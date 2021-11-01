@@ -3,7 +3,7 @@
 namespace Bag2\Cookie;
 
 /**
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
 final class SetCookieTest extends TestCase
 {

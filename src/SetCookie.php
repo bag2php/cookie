@@ -16,7 +16,7 @@ use const DATE_RFC7231;
  * Set-Cookie entry class
  *
  * @psalm-external-mutation-free
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  * @property-read non-empty-string $name
  * @property-read string $value
  * @property-read array{expires?:0|positive-int,path?:non-empty-string,domain?:non-empty-string,secure?:bool,httponly?:bool,samesite?:'Lax'|'None'|'Strict'} $options

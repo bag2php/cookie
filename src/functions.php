@@ -19,7 +19,7 @@ namespace Bag2\Cookie
         return new Oven($default_options);
     }
 
-    function create_emitter(): Emitter
+    function create_emitter(): CookieEmitter
     {
         if (PHP_VERSION_ID < 70300) {
             return new PhpLegacyFunction();

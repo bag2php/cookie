@@ -3,11 +3,11 @@
 namespace Bag2\Cookie;
 
 /**
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
-final class EmitterTest extends TestCase
+final class CookieEmitterTest extends TestCase
 {
-    /** @var ?Emitter */
+    /** @var ?CookieEmitter */
     protected $subject;
     /**
      * @var ?array{name:string,value:string,options:array}
@@ -17,11 +17,11 @@ final class EmitterTest extends TestCase
 
     public function setUp(): void
     {
-        $this->subject = new class ($this) implements Emitter {
-            /** @var EmitterTest */
+        $this->subject = new class ($this) implements CookieEmitter {
+            /** @var CookieEmitterTest */
             private $case;
 
-            public function __construct(EmitterTest $case)
+            public function __construct(CookieEmitterTest $case)
             {
                 $this->case = $case;
             }

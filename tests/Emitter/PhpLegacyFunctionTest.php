@@ -4,12 +4,12 @@ namespace Bag2\Cookie\Emitter;
 
 use AssertionError;
 use Badoo\SoftMocks;
-use Bag2\Cookie\Emitter;
+use Bag2\Cookie\CookieEmitter;
 use Bag2\Cookie\TestCase;
 use function ksort;
 
 /**
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
 final class PhpLegacyFunctionTest extends TestCase
 {

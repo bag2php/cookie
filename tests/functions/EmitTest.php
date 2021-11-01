@@ -3,12 +3,12 @@
 namespace Bag2\Cookie\functions;
 
 use Badoo\SoftMocks;
-use Bag2\Cookie\Emitter;
+use Bag2\Cookie\CookieEmitter;
 use Bag2\Cookie\Oven;
 
 /**
  *
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
 final class EmitTest extends \Bag2\Cookie\TestCase
 {
@@ -17,14 +17,14 @@ final class EmitTest extends \Bag2\Cookie\TestCase
      * @phpstan-var ?array<array{name:non-empty-string,value:string,options:options}>
      */
     public $received;
-    /** @var ?Emitter */
+    /** @var ?CookieEmitter */
     protected $subject;
 
     public function setUp(): void
     {
         $this->received = [];
 
-        $emitter = new class ($this) implements Emitter {
+        $emitter = new class ($this) implements CookieEmitter {
             /** @var EmitTest */
             private $case;
 

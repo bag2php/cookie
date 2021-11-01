@@ -5,7 +5,7 @@ namespace Bag2\Cookie;
 /**
  * @phpstan-type options array{expires?:int,path?:non-empty-string,domain?:non-empty-string,secure?:bool,httponly?:bool,samesite?:'Lax'|'None'|'Strict'}
  */
-interface Emitter
+interface CookieEmitter
 {
     /**
      * @phpstan-param non-empty-string $name

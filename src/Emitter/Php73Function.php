@@ -2,17 +2,17 @@
 
 namespace Bag2\Cookie\Emitter;
 
-use Bag2\Cookie\Emitter;
+use Bag2\Cookie\CookieEmitter;
 use function setcookie;
 use const PHP_VERSION_ID;
 
 /**
- * @phpstan-import-type options from \Bag2\Cookie\Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
-final class Php73Function implements Emitter
+final class Php73Function implements CookieEmitter
 {
     /**
-     * @deprecated Use {@see Emitter::emitCookie()}
+     * @deprecated Use {@see CookieEmitter::emitCookie()}
      * @phpstan-param non-empty-string $name
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $options
      * @phpstan-param options $options

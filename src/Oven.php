@@ -15,7 +15,7 @@ use function time;
  * Cookie Oven
  *
  * @implements IteratorAggregate<string,SetCookie>
- * @phpstan-import-type options from Emitter
+ * @phpstan-import-type options from CookieEmitter
  */
 class Oven implements IteratorAggregate, Countable
 {
