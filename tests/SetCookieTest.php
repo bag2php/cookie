@@ -2,6 +2,8 @@
 
 namespace Bag2\Cookie;
 
+use DomainException;
+
 /**
  * @phpstan-import-type options from CookieEmitter
  */
@@ -139,6 +141,35 @@ final class SetCookieTest extends TestCase
                     ],
                 ],
                 'expected_line' => 'Expires=is%20past.; Expires=Sun, 12 Jan 2020 07:25:55 GMT; Max-Age=0',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider illegalOptionsProvider
+     * @phpstan-param array{0:non-empty-string,1:int|string,2:options} $args
+     */
+    public function test_illegalOptions(array $args): void
+    {
+        $this->expectException(DomainException::class);
+
+        $_ = new SetCookie(...$args);
+    }
+
+    /**
+     * @phpstan-return array<array{0:array{0:string,1:string,2:array<string,string>}}>
+     */
+    public function illegalOptionsProvider(): array
+    {
+        return [
+            [
+                ['name', 'value', ['foo' => 'bar']],
+            ],
+            [
+                ['', 'value', ['foo' => 'bar']],
+            ],
+            [
+                ['name', 'value', ['foo' => 'bar']],
             ],
         ];
     }
