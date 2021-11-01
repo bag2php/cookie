@@ -21,6 +21,8 @@ final class SetCookieTest extends \Bag2\Cookie\TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->received = null;
         $received = &$this->received;
 

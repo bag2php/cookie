@@ -22,6 +22,8 @@ final class EmitTest extends \Bag2\Cookie\TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->received = [];
 
         $emitter = new class ($this) implements CookieEmitter {

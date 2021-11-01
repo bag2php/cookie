@@ -17,6 +17,8 @@ final class CookieEmitterTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new class ($this) implements CookieEmitter {
             /** @var CookieEmitterTest */
             private $case;
