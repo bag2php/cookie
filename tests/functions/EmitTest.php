@@ -17,7 +17,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
     {
         $this->received = [];
 
-        $emitter = new class($this) implements Emitter {
+        $emitter = new class ($this) implements Emitter {
             /** @var EmitTest */
             private $case;
 
@@ -74,7 +74,7 @@ final class EmitTest extends \Bag2\Cookie\TestCase
                 [
                     'result' => true,
                     'received' => [],
-                ]
+                ],
             ],
             [
                 (new Oven())->add('A', 'v'),
@@ -85,9 +85,9 @@ final class EmitTest extends \Bag2\Cookie\TestCase
                             'name' => 'A',
                             'value' => 'v',
                             'options' => [],
-                        ]
+                        ],
                     ],
-                ]
+                ],
             ],
         ];
     }

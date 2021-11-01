@@ -2,15 +2,15 @@
 
 namespace Bag2\Cookie;
 
-use const DATE_RFC7231;
 use DomainException;
+use OutOfRangeException;
 use function gmdate;
 use function is_int;
 use function is_string;
 use function max;
-use OutOfRangeException;
 use function preg_match;
 use function urlencode;
+use const DATE_RFC7231;
 
 /**
  * Cookie class for HTTP Set-Cookie header

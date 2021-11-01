@@ -98,7 +98,7 @@ final class PhpLegacyFunctionTest extends TestCase
                     'domain' => '',
                     'secure' => false,
                     'httponly' => false,
-                ]
+                ],
             ],
         ];
     }

@@ -31,7 +31,7 @@ final class SetCookieTest extends \Bag2\Cookie\TestCase
 
     public function test(): void
     {
-        $expected = (new Oven)->add('Name', '', [
+        $expected = (new Oven())->add('Name', '', [
             'expires' => 0,
             'path' => '',
             'domain' => '',

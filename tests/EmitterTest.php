@@ -11,7 +11,7 @@ final class EmitterTest extends TestCase
 
     public function setUp(): void
     {
-        $this->subject = new class($this) implements Emitter {
+        $this->subject = new class ($this) implements Emitter {
             /** @var EmitterTest */
             private $case;
 

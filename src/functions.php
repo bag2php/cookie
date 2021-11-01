@@ -3,6 +3,7 @@
 /**
  * Cookie functions
  */
+
 namespace Bag2\Cookie
 {
     use Bag2\Cookie\Emitter\Php73Function;
@@ -59,7 +60,7 @@ namespace Bag2\Cookie
             'domain' => $domain,
             'secure' => $secure,
             'httponly' => $httponly,
-            'samesite' => $samesite
+            'samesite' => $samesite,
         ]));
     }
 }

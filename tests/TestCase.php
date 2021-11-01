@@ -10,7 +10,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     public function createResponseFactory(): ResponseFactoryInterface
     {
-        return new Psr17Factory;
+        return new Psr17Factory();
     }
 
     public function tearDown(): void

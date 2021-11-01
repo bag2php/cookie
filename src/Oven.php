@@ -2,13 +2,13 @@
 
 namespace Bag2\Cookie;
 
-use function array_values;
 use ArrayIterator;
-use function count;
 use Countable;
-use function explode;
 use IteratorAggregate;
 use Psr\Http\Message\ResponseInterface;
+use function array_values;
+use function count;
+use function explode;
 use function time;
 
 /**
