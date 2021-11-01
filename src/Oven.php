@@ -168,6 +168,6 @@ class Oven implements IteratorAggregate, Countable
             $cookie_lines[$name] = $cookie->compileHeaderLine($now);
         }
 
-        return $response->withHeader('Set-Cookie', array_values($cookie_lines));
+        return $response->withHeader('Set-Cookie', $cookie_lines);
     }
 }
