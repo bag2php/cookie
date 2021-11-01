@@ -7,7 +7,6 @@ use Bag2\Cookie\CookieEmitter;
 use Bag2\Cookie\Oven;
 
 /**
- *
  * @phpstan-import-type options from CookieEmitter
  */
 final class EmitTest extends \Bag2\Cookie\SoftMocksTestCase
