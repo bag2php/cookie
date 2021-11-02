@@ -172,6 +172,10 @@ final class SetCookie
      */
     public function compileHeaderLine(int $now): string
     {
+        if ($this->value === '') {
+            return $this->compileRemoveHeaderLine();
+        }
+
         $line = "{$this->name}=" . $this->encodeValue($this->value);
 
         $expires = $this->options['expires'] ?? 0;
@@ -209,6 +213,11 @@ final class SetCookie
         }
 
         return $line;
+    }
+
+    public function compileRemoveHeaderLine(): string
+    {
+        return "";
     }
 
     /**

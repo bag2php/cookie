@@ -29,14 +29,15 @@ final class OvenTest extends TestCase
 
         foreach ($subject as $cookie) {
             $this->assertInstanceOf(SetCookie::class, $cookie);
-            $this->assertTrue($subject->has($cookie->name));
-            $this->assertSame($cookie, $subject->get($cookie->name));
+            $this->assertTrue(isset($subject[$cookie->name]));
+            $this->assertSame($cookie, $subject[$cookie->name]);
         }
 
-        $this->assertFalse($subject->has(''));
+        /** @psalm-suppress InvalidArgument */
+        $this->assertFalse(isset($subject[''])); /** @phpstan-ignore-line */
 
         foreach ($expected_cookies as $expected) {
-            $actual = $subject->get($expected->name);
+            $actual = $subject[$expected->name];
             $this->assertSame($expected->name, $actual->name);
             $this->assertSame($expected->value, $actual->value);
             $this->assertSame($expected->options, $actual->options);
@@ -109,7 +110,7 @@ final class OvenTest extends TestCase
         $actual = $subject->setTo($actual, self::NOW);
         $this->assertSame($expected, $actual->getHeader('Set-Cookie'));
 
-        $subject->delete('Name2');
+        unset($subject['Name2']);
 
         $expected = [
             'Name1=VALUE',

@@ -2,6 +2,7 @@
 
 namespace Bag2\Cookie;
 
+use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
@@ -15,13 +16,15 @@ use function time;
 /**
  * Cookie Oven
  *
- * @implements IteratorAggregate<string,SetCookie>
+ * @implements ArrayAccess<non-empty-string, SetCookie>
+ * @implements IteratorAggregate<non-empty-string, SetCookie>
  * @phpstan-import-type options from CookieEmitter
  */
-class Oven implements IteratorAggregate, Countable
+class Oven implements ArrayAccess, Countable, IteratorAggregate
 {
-    /** @var array<string,SetCookie> */
+    /** @phpstan-var array<non-empty-string,SetCookie> */
     private $bag = [];
+
     /**
      * @var array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string}
      * @phpstan-var options
@@ -96,38 +99,54 @@ class Oven implements IteratorAggregate, Countable
 
     /**
      * @phpstan-impure
-     * @psalm-mutation-free
-     * @return $this
+     * @psalm-external-mutation-free
+     * @phpstan-param non-empty-string $offset
      */
-    public function delete(string $name): self
+    public function offsetUnset($offset): void
     {
-        unset($this->bag[$name]);
-
-        return $this;
+        unset($this->bag[$offset]);
     }
 
     /**
      * @psalm-mutation-free
+     * @phpstan-param non-empty-string $offset
      */
-    public function has(string $name): bool
+    public function offsetExists($offset): bool
     {
-        return isset($this->bag[$name]);
+        return isset($this->bag[$offset]);
     }
 
     /**
      * @psalm-mutation-free
+     * @phpstan-param non-empty-string $offset
      */
-    public function get(string $name): SetCookie
+    public function offsetGet($offset): SetCookie
     {
-        return $this->bag[$name];
+        return $this->bag[$offset];
     }
 
     /**
-     * @return ArrayIterator<string,SetCookie>
+     * @phpstan-impure
+     * @psalm-external-mutation-free
+     * @phpstan-param ?non-empty-string $offset
+     * @param SetCookie $value
+     */
+    public function offsetSet($offset, $value): void
+    {
+        /** @phpstan-ignore-next-line */
+        assert($value instanceof SetCookie);
+        $this->bag[$offset ?? $value->name] = $value;
+    }
+
+    /**
+     * @phpstan-return ArrayIterator<non-empty-string, SetCookie>
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->bag);
+        /** @phpstan-var ArrayIterator<non-empty-string, SetCookie> $iter */
+        $iter = new ArrayIterator($this->bag);
+
+        return $iter;
     }
 
     /**
