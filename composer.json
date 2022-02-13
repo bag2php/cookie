@@ -8,14 +8,12 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "badoo/soft-mocks": "^3.1",
         "laminas/laminas-httphandlerrunner": "^1.1",
         "nikic/php-parser": "^4.13",
         "nyholm/psr7": "^1.2",
-        "php-http/psr7-integration-tests": "^1.0",
-        "phpunit/phpunit": "^7",
-        "psr/http-factory": "^1.0",
-        "vaimo/composer-patches": "^4.22"
+        "php-http/psr7-integration-tests": "^1.1",
+        "phpunit/phpunit": "^9.5",
+        "psr/http-factory": "^1.0"
     },
     "autoload": {
         "files": ["src/functions.php"],
