@@ -92,6 +92,7 @@ class Oven implements ArrayAccess, Countable, IteratorAggregate
      * @psalm-mutation-free
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->bag);
@@ -141,6 +142,7 @@ class Oven implements ArrayAccess, Countable, IteratorAggregate
     /**
      * @phpstan-return ArrayIterator<non-empty-string, SetCookie>
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         /** @phpstan-var ArrayIterator<non-empty-string, SetCookie> $iter */
