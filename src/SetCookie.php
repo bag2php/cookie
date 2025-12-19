@@ -9,10 +9,8 @@ use function in_array;
 use function is_int;
 use function is_string;
 use function max;
-use function preg_match;
 use function rawurlencode;
 use function strpbrk;
-use const DATE_RFC7231;
 
 /**
  * Set-Cookie entry class
@@ -180,7 +178,7 @@ final class SetCookie
         if ($expires > 0) {
             assert(is_int($expires));
 
-            $expires_str = gmdate(DATE_RFC7231, $expires);
+            $expires_str = gmdate('D, d M Y H:i:s \G\M\T', $expires);
             $max_age = max(0, $expires - $now);
             $line .= "; Expires={$expires_str}; Max-Age={$max_age}";
         }
