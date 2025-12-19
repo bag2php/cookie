@@ -3,6 +3,7 @@
 namespace Bag2\Cookie;
 
 use function count;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @phpstan-import-type options from CookieEmitter
@@ -19,6 +20,7 @@ final class OvenTest extends TestCase
      * @phpstan-param array<array{0:non-empty-string,1:string,2:options}> $cookies
      * @param SetCookie[] $expected_cookies
      */
+    #[DataProvider('bagProvider')]
     public function test($default_options, $cookies, $expected_cookies): void
     {
         $subject = new Oven($default_options);
@@ -49,7 +51,7 @@ final class OvenTest extends TestCase
     /**
      * @phpstan-return array<array{default_options:options,cookies:list<array{0:non-empty-string,1:string,2:options}>,expected_cookies:list<SetCookie>}>
      */
-    public function bagProvider(): array
+    public static function bagProvider(): array
     {
         $now = time();
 

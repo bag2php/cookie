@@ -4,6 +4,7 @@
 .php-cs-fixer.cache
 .phpunit.result.cache
 /.idea/
+/.phpunit.cache/*
 /cache/
 /log/
 /node_modules/

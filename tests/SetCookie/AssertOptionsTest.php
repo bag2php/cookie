@@ -5,6 +5,7 @@ namespace Bag2\Cookie\SetCookie;
 use Bag2\Cookie\SetCookie;
 use Bag2\Cookie\TestCase;
 use DomainException;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class AssertOptionsTest extends TestCase
 {
@@ -12,6 +13,7 @@ final class AssertOptionsTest extends TestCase
      * @dataProvider optionsProvider
      * @phpstan-param array<string,mixed> $input
      */
+    #[DataProvider('optionsProvider')]
     public function test(array $input, string $expected_message): void
     {
         $this->expectException(DomainException::class);
@@ -23,7 +25,7 @@ final class AssertOptionsTest extends TestCase
     /**
      * @return array<array{0:array<string,string>,1:string}>
      */
-    public function optionsProvider(): array
+    public static function optionsProvider(): array
     {
         return [
             [

@@ -5,6 +5,7 @@ namespace Bag2\Cookie\Oven;
 use Bag2\Cookie\Oven;
 use Bag2\Cookie\TestCase;
 use DomainException;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class ParseLineTest extends TestCase
 {
@@ -21,6 +22,7 @@ final class ParseLineTest extends TestCase
      * @phpstan-param list<string> $input
      * @param array<string> $expected
      */
+    #[DataProvider('linesProvider')]
     public function test(array $input, array $expected): void
     {
         $this->assertEquals($expected, $this->subject->parseLines($input));
@@ -29,7 +31,7 @@ final class ParseLineTest extends TestCase
     /**
      * @phpstan-return array<array{0:list<string>,1:array<string>}>
      */
-    public function linesProvider(): array
+    public static function linesProvider(): array
     {
         return [
             [

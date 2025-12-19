@@ -5,6 +5,7 @@ namespace Bag2\Cookie\functions;
 use Badoo\SoftMocks;
 use Bag2\Cookie\CookieEmitter;
 use Bag2\Cookie\Oven;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @phpstan-import-type options from CookieEmitter
@@ -64,6 +65,7 @@ final class EmitTest extends \Bag2\Cookie\SoftMocksTestCase
      * @param array{result:bool,received:array<array>} $expected
      * @phpstan-param array{result:bool,received:list<options>} $expected
      */
+    #[DataProvider('cookieProvider')]
     public function test(Oven $oven, array $expected): void
     {
         $actual = \Bag2\Cookie\emit($oven);
@@ -76,7 +78,7 @@ final class EmitTest extends \Bag2\Cookie\SoftMocksTestCase
      * @return array<array{0:Oven,1:array{result:bool,received:array<array>}}>
      * @phpstan-return array<array{0:Oven,1:array{result:bool,received:list<options>}}>
      */
-    public function cookieProvider()
+    public static function cookieProvider()
     {
         return [
             [

@@ -16,7 +16,9 @@ abstract class SoftMocksTestCase extends TestCase
 
     public function tearDown(): void
     {
-        SoftMocks::restoreAll();
+        if (class_exists(SoftMocks::class)) {
+            SoftMocks::restoreAll();
+        }
 
         parent::tearDown();
     }
