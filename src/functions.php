@@ -7,8 +7,6 @@
 namespace Bag2\Cookie
 {
     use Bag2\Cookie\Emitter\Php73Function;
-    use Bag2\Cookie\Emitter\PhpLegacyFunction;
-    use const PHP_VERSION_ID;
 
     /**
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
@@ -21,10 +19,6 @@ namespace Bag2\Cookie
 
     function create_emitter(): CookieEmitter
     {
-        if (PHP_VERSION_ID < 70300) {
-            return new PhpLegacyFunction();
-        }
-
         return new Php73Function();
     }
 

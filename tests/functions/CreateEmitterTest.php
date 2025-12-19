@@ -24,11 +24,7 @@ final class CreateEmitterTest extends \Bag2\Cookie\SoftMocksTestCase
      */
     public function versionsProvider()
     {
-        return [
-            '7.1.0' => [70100, PhpLegacyFunction::class],
-            '7.2.0' => [70200, PhpLegacyFunction::class],
-            '7.3.0' => [70300, Php73Function::class],
-            '7.4.0' => [70400, Php73Function::class],
-        ];
+        yield '7.3.0' => [70300, Php73Function::class];
+        yield '7.4.0' => [70400, Php73Function::class];
     }
 }
