@@ -12,19 +12,16 @@ use Bag2\Cookie\SoftMocksTestCase;
  */
 final class Php73FunctionTest extends SoftMocksTestCase
 {
-    /** @var ?Php73Function */
-    private $subject;
+    private Php73Function $subject;
     /**
      * @var ?array{name:string,value:string,options:array}
      * @phpstan-var ?array{name:non-empty-string,value:string,options:options}
      */
-    private $receive;
+    private ?array $receive = null;
 
     public function setUp(): void
     {
         parent::setUp();
-
-        SoftMocks::redefineConstant('PHP_VERSION_ID', 70300);
 
         $receive = &$this->receive;
         /**

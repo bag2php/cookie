@@ -7,8 +7,6 @@
 namespace Bag2\Cookie
 {
     use Bag2\Cookie\Emitter\Php73Function;
-    use Bag2\Cookie\Emitter\PhpLegacyFunction;
-    use const PHP_VERSION_ID;
 
     /**
      * @param array{expires?:int,path?:string,domain?:string,secure?:bool,httponly?:bool,samesite?:string} $default_options
@@ -21,10 +19,6 @@ namespace Bag2\Cookie
 
     function create_emitter(): CookieEmitter
     {
-        if (PHP_VERSION_ID < 70300) {
-            return new PhpLegacyFunction();
-        }
-
         return new Php73Function();
     }
 
@@ -47,19 +41,19 @@ namespace Bag2\Cookie
      *
      * @phpstan-param non-empty-string $name
      * @phpstan-param 0|positive-int $expires
-     * @phpstan-param non-empty-string $path
-     * @phpstan-param non-empty-string $domain
-     * @phpstan-param 'Lax'|'None'|'Strict' $samesite
+     * @phpstan-param ?non-empty-string $path
+     * @phpstan-param ?non-empty-string $domain
+     * @phpstan-param 'Lax'|'None'|'Strict'|null $samesite
      */
     function setcookie(
         string $name,
         string $value = '',
         int $expires = 0,
-        string $path = null,
-        string $domain = null,
+        ?string $path = null,
+        ?string $domain = null,
         bool $secure = false,
         bool $httponly = false,
-        string $samesite = null
+        ?string $samesite = null,
     ): bool {
         $options = [
             'expires' => $expires,

@@ -3,16 +3,18 @@
     "description": "Cookie functions over PSR-7 and setcookie() function.",
     "license": "Apache-2.0",
     "require": {
-        "php": ">=7.1",
+        "php": ">=8.1",
         "ext-pcre": "*",
-        "psr/http-message": "^1.0"
+        "psr/http-message": "^1.1 || ^2.0"
     },
     "require-dev": {
-        "laminas/laminas-httphandlerrunner": "^1.1",
-        "nikic/php-parser": "^4.13",
-        "nyholm/psr7": "^1.2",
-        "php-http/psr7-integration-tests": "^1.1",
-        "phpunit/phpunit": "^9.5",
+        "badoo/soft-mocks": "^4.0",
+        "laminas/laminas-httphandlerrunner": "^2.13",
+        "nyholm/psr7": "^1.8",
+        "php-http/psr7-integration-tests": "^1.5",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/php-code-coverage": "^12.5",
+        "phpunit/phpunit": "^9.6 || ^12.0",
         "psr/http-factory": "^1.0"
     },
     "autoload": {
